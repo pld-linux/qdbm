@@ -4,10 +4,10 @@
 #
 Summary:	Quick Database Manager
 Name:		qdbm
-Version:	1.8.47
+Version:	1.8.48
 Release:	0.1
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
-# Source0-md5:	0e536a6bc8edf092eae6f81428be3037
+# Source0-md5:	ac59de1fd23478edcb906612fe48f3b8
 License:	LGPL
 Group:		Development/Libraries
 Url:		http://qdbm.sourceforge.net/
