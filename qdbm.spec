@@ -1,23 +1,36 @@
 #
-# TODO: perl,ruby APIs
-# 
+# TODO:	- check what going on with linking (it links against already
+#	installed libqdbm ?):
+#	`checking for main in -lqdbm... no' (or `yes' if qdbm is
+#	installed)
+#	- check & fix optimazation flags - lack of -march, `-O1'
+#	instead of `-O2' in some places
+#
 # Conditional build:
 %bcond_with	java	# with Java bindings
+%bcond_without	perl	# with Perl bindings
+%bcond_without	ruby	# with Ruby bindings
 #
 Summary:	Quick Database Manager
 Summary(pl):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.48
-Release:	0.1
+Release:	0.2
 License:	LGPL
 Group:		Libraries
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
 # Source0-md5:	ac59de1fd23478edcb906612fe48f3b8
+Patch0:		%{name}-perl-pure_install.patch
 URL:		http://qdbm.sourceforge.net/
 %{?with_java:BuildRequires:	jdk}
+%if %{with perl}
+BuildRequires:  perl-devel >= 1:5.8.0
+BuildRequires:  rpm-perlprov >= 4.1-13
+%endif
+%{?with_ruby:BuildRequires:	ruby-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_libexecdir	/usr/lib/qdbm
+%define		_libexecdir	%{_libdir}/qdbm
 
 %description
 QDBM is an embeded database library compatible with GDBM and NDBM. It
@@ -104,6 +117,20 @@ QDBM C++ bindings.
 Ten pakiet zawiera bibliotekê statyczn± do tworzenia programów z
 u¿yciem wi±zañ C++ QDBM-a.
 
+%package cgi
+Summary:	CGI scripts with QDBM
+Summary(pl):	Skrypty CGI dla QDBM-a
+Group:		Applications/Databases
+Requires:	%{name} = %{version}-%{release}
+
+%description cgi
+This package contains CGI scripts with QDBM, for administration of
+databases, file uploading, and full-text search.
+
+%description cgi -l pl
+Ten pakiet zawiera skrypty CGI dla QDBM-a s³u¿±ce do administrowania
+bazami danych, przesy³ania plików i wyszukiwania pe³notekstowego.
+
 %package java
 Summary:	Java libraries for QDBM
 Summary(pl):	Biblioteki Javy dla QDBM-a
@@ -130,51 +157,88 @@ using the QDBM Java bindings.
 Ten pakiet zawiera bibliotekê programistyczn± potrzebn± do tworzenia
 programów z u¿yciem wi±zañ Javy QDBM-a.
 
-%package cgi
-Summary:	CGI scripts with QDBM
-Summary(pl):	Skrypty CGI dla QDBM-a
-Group:		Applications/Databases
+%package perl
+Summary:	Perl libraries for QDBM
+Summary(pl):	Biblioteki Perla dla QDBM-a
+Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
-%description cgi
-This package contains CGI scripts with QDBM, for administration of
-databases, file uploading, and full-text search.
+%description perl
+QDBM Perl bindings.
 
-%description cgi -l pl
-Ten pakiet zawiera skrypty CGI dla QDBM-a s³u¿±ce do administrowania
-bazami danych, przesy³ania plików i wyszukiwania pe³notekstowego.
+%description perl -l pl
+Biblioteki Perla dla QDBM-a.
+
+%package ruby
+Summary:	Ruby libraries for QDBM
+Summary(pl):	Biblioteki Ruby dla QDBM-a
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+%ruby_ver_requires_eq
+
+%description ruby
+QDBM Ruby bindings.
+
+%description ruby -l pl
+Biblioteki Ruby dla QDBM-a.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__autoconf}
 %configure
 %{__make}
 
 cd plus
+%{__autoconf}
 %configure
 %{__make}
 cd ..
 
 %if %{with java}
 cd java
+%{__autoconf}
+%configure
+%{__make}
+cd ..
+%endif
+
+%if %{with perl}
+cd perl
+%{__autoconf}
+%configure
+%{__make} \
+	INSTALLDIRS=vendor \
+	OPTIMIZE="%{rpmcflags}"
+cd ..
+%endif
+
+%if %{with ruby}
+cd ruby
+%{__autoconf}
 %configure
 %{__make}
 cd ..
 %endif
 
 cd cgi
+%{__autoconf}
 %configure
-%{__make} 
+%{__make}
 cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT 
+	DESTDIR=$RPM_BUILD_ROOT
 
 %{__make} -C plus install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+%{__make} -C cgi install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{with java}
@@ -182,8 +246,15 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
-%{__make} -C cgi install \
+%if %{with perl}
+%{__make} -C perl install \
 	DESTDIR=$RPM_BUILD_ROOT
+%endif
+
+%if %{with ruby}
+%{__make} -C ruby install \
+	DESTDIR=$RPM_BUILD_ROOT
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -204,7 +275,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc *.html
+%doc spex.html
+%lang(ja) %doc spex-ja.html
 %attr(755,root,root) %{_bindir}/dpmgr
 %attr(755,root,root) %{_bindir}/dptest
 %attr(755,root,root) %{_bindir}/dptsv
@@ -290,6 +362,24 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libxqdbm.a
 
+%files cgi
+%defattr(644,root,root,755)
+%doc cgi/*.html
+# don't move cgi binaries to /usr/lib/cgi-bin - write your own wrapper
+# (shell script) instead, utilize SCRIPT_NAME env. var. and put into
+# your cgi-bin directory
+%dir %{_libexecdir}
+%attr(755,root,root) %{_libexecdir}/qadm.cgi
+%attr(755,root,root) %{_libexecdir}/qupl.cgi
+%attr(755,root,root) %{_libexecdir}/qfts.cgi
+%dir %{_datadir}/qdbm
+%dir %{_datadir}/qdbm/cgi
+# *.conf are config templates not real configs - don't mark them with
+# %%config, don't move it to /etc
+%{_datadir}/qdbm/cgi/qadm.conf
+%{_datadir}/qdbm/cgi/qupl.conf
+%{_datadir}/qdbm/cgi/qfts.conf
+
 %if %{with java}
 %files java
 %defattr(644,root,root,755)
@@ -298,22 +388,45 @@ rm -rf $RPM_BUILD_ROOT
 
 %files java-devel
 %defattr(644,root,root,755)
-%doc java/*.html java/japidoc
+%doc java/jspex.html java/japidoc
+%lang(ja) %doc java/jspex-ja.html
 %attr(755,root,root) %{_libdir}/libjqdbm.so
 %endif
 
-%files cgi
+%if %{with perl}
+%files perl
 %defattr(644,root,root,755)
-%doc cgi/*.html
-# don't move it to /usr/lib/cgi-bin - write your wrapper (sh script),
-# utilize SCRIPT_NAME env. var. and put into your cgi-bin directory
-%dir %{_libexecdir}
-%{_libexecdir}/qadm.cgi
-%{_libexecdir}/qupl.cgi
-%{_libexecdir}/qfts.cgi
-%dir %{_datadir}/qdbm
-%dir %{_datadir}/qdbm/cgi
-# config templates - don't add to %%config, don't move it to /etc
-%{_datadir}/qdbm/cgi/qadm.conf
-%{_datadir}/qdbm/cgi/qupl.conf
-%{_datadir}/qdbm/cgi/qfts.conf
+%doc perl/plspex.html perl/plapidoc
+%lang(ja) %doc perl/plspex-ja.html
+%attr(755,root,root) %{_bindir}/plcrtest
+%attr(755,root,root) %{_bindir}/pldptest
+%attr(755,root,root) %{_bindir}/plvltest
+%{perl_vendorarch}/Curia.pm
+%{perl_vendorarch}/Depot.pm
+%{perl_vendorarch}/Villa.pm
+%{perl_vendorarch}/auto/Curia
+%{perl_vendorarch}/auto/Curia/Curia.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/Curia/Curia.so
+%{perl_vendorarch}/auto/Depot
+%{perl_vendorarch}/auto/Depot/Depot.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/Depot/Depot.so
+%{perl_vendorarch}/auto/Villa
+%{perl_vendorarch}/auto/Villa/Villa.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/Villa/Villa.so
+%endif
+
+%if %{with ruby}
+%files ruby
+%defattr(644,root,root,755)
+%doc ruby/rbspex.html ruby/rbapidoc
+%lang(ja) %doc ruby/rbspex-ja.html
+%attr(755,root,root) %{_bindir}/rbcrtest
+%attr(755,root,root) %{_bindir}/rbdptest
+%attr(755,root,root) %{_bindir}/rbvltest
+%{ruby_sitelibdir}/curia.rb
+%{ruby_sitelibdir}/depot.rb
+%{ruby_sitelibdir}/villa.rb
+%attr(755,root,root) %{ruby_sitearchdir}/mod_curia.so
+%attr(755,root,root) %{ruby_sitearchdir}/mod_depot.so
+%attr(755,root,root) %{ruby_sitearchdir}/mod_villa.so
+%endif
