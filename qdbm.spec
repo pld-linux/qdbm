@@ -1,27 +1,24 @@
 #
-# TODO:	- check what going on with linking (it links against already
-#	installed libqdbm ?):
-#	`checking for main in -lqdbm... no' (or `yes' if qdbm is
-#	installed)
-#	- check & fix optimazation flags - lack of -march, `-O1'
-#	instead of `-O2' in some places
-#
 # Conditional build:
 %bcond_with	java	# with Java bindings
 %bcond_without	perl	# with Perl bindings
 %bcond_without	ruby	# with Ruby bindings
+%bcond_without	static_libs	# don't build static libraries
 #
 Summary:	Quick Database Manager
 Summary(pl):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.48
-Release:	0.2
+Release:	0.3
 License:	LGPL
 Group:		Libraries
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
 # Source0-md5:	ac59de1fd23478edcb906612fe48f3b8
-Patch0:		%{name}-perl-pure_install.patch
+Patch0:		%{name}-am_ac.patch
 URL:		http://qdbm.sourceforge.net/
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 %{?with_java:BuildRequires:	jdk}
 %if %{with perl}
 BuildRequires:  perl-devel >= 1:5.8.0
@@ -187,20 +184,32 @@ Biblioteki Ruby dla QDBM-a.
 %patch0 -p1
 
 %build
+%{__libtoolize}
+%{__aclocal}
 %{__autoconf}
-%configure
+%{__automake}
+%configure \
+	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
 %{__make}
 
 cd plus
+%{__libtoolize}
+%{__aclocal}
 %{__autoconf}
-%configure
+%{__automake}
+%configure \
+	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
 %{__make}
 cd ..
 
 %if %{with java}
 cd java
+%{__libtoolize}
+%{__aclocal}
 %{__autoconf}
-%configure
+%{__automake}
+%configure \
+	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
 %{__make}
 cd ..
 %endif
@@ -224,8 +233,11 @@ cd ..
 %endif
 
 cd cgi
+%{__aclocal}
+%{__aclocal}
 %{__autoconf}
-%configure
+%{__automake}
+%configure 
 %{__make}
 cd ..
 
@@ -337,9 +349,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/odeum.3*
 %{_mandir}/man3/odopen.3*
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libqdbm.a
+%endif
 
 %files plus
 %defattr(644,root,root,755)
@@ -358,9 +372,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/xcuria.h
 %{_includedir}/xvilla.h
 
+%if %{with static_libs}
 %files plus-static
 %defattr(644,root,root,755)
 %{_libdir}/libxqdbm.a
+%endif
 
 %files cgi
 %defattr(644,root,root,755)
