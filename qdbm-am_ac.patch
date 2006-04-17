@@ -1,0 +1,1017 @@
+diff -Nur o.qdbm-1.8.48/Makefile.am n.qdbm-1.8.48/Makefile.am
+--- o.qdbm-1.8.48/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ n.qdbm-1.8.48/Makefile.am	2006-04-17 16:00:08.000000000 +0200
+@@ -0,0 +1,100 @@
++AM_CPPFLAGS = -I.	-D_XOPEN_SOURCE_EXTENDED=1 -D_GNU_SOURCE=1 -D__EXTENSIONS__=1 -D_HPUX_SOURCE=1 \
++					-D_POSIX_MAPPED_FILES=1 -D_POSIX_SYNCHRONIZED_IO=1 -DPIC=1 -D_REENTRANT=1 \
++					@MYDEFS@
++
++AM_CFLAGS = -Wall -ansi -pedantic -fsigned-char
++
++lib_LTLIBRARIES = libqdbm.la
++libqdbm_la_SOURCES = depot.c curia.c relic.c hovel.c cabin.c villa.c vista.c odeum.c myconf.c
++include_HEADERS = depot.h curia.h relic.h hovel.h cabin.h villa.h vista.h odeum.h
++libqdbm_la_LDFLAGS = -version-info @LIBVER@:@LIBREV@:@LIBAGE@
++
++bin_PROGRAMS = cbcodec cbtest crmgr crtest crtsv dpmgr dptest dptsv hvmgr hvtest odidx odmgr odtest rlmgr rltest vlmgr vltest vltsv
++cbcodec_SOURCES = cbcodec.c
++cbcodec_LDADD = libqdbm.la
++cbtest_SOURCES = cbtest.c
++cbtest_LDADD = libqdbm.la
++crmgr_SOURCES = crmgr.c
++crmgr_LDADD = libqdbm.la
++crtest_SOURCES = crtest.c
++crtest_LDADD = libqdbm.la
++crtsv_SOURCES = crtsv.c
++crtsv_LDADD = libqdbm.la
++dpmgr_SOURCES = dpmgr.c
++dpmgr_LDADD = libqdbm.la
++dptest_SOURCES = dptest.c
++dptest_LDADD = libqdbm.la
++dptsv_SOURCES = dptsv.c
++dptsv_LDADD = libqdbm.la
++hvmgr_SOURCES = hvmgr.c
++hvmgr_LDADD = libqdbm.la
++hvtest_SOURCES = hvtest.c
++hvtest_LDADD = libqdbm.la
++odidx_SOURCES = odidx.c
++odidx_LDADD = libqdbm.la
++odmgr_SOURCES = odmgr.c
++odmgr_LDADD = libqdbm.la
++odtest_SOURCES = odtest.c
++odtest_LDADD = libqdbm.la
++rlmgr_SOURCES = rlmgr.c
++rlmgr_LDADD = libqdbm.la
++rltest_SOURCES = rltest.c
++rltest_LDADD = libqdbm.la
++vlmgr_SOURCES = vlmgr.c
++vlmgr_LDADD = libqdbm.la
++vltest_SOURCES = vltest.c
++vltest_LDADD = libqdbm.la
++vltsv_SOURCES = vltsv.c
++vltsv_LDADD = libqdbm.la
++
++man1_MANS = \
++	man/cbcodec.1 \
++	man/cbtest.1 \
++	man/crmgr.1 \
++	man/crtest.1 \
++	man/crtsv.1 \
++	man/dpmgr.1 \
++	man/dptest.1 \
++	man/dptsv.1 \
++	man/hvmgr.1 \
++	man/hvtest.1 \
++	man/odidx.1 \
++	man/odmgr.1 \
++	man/odtest.1 \
++	man/rlmgr.1 \
++	man/rltest.1 \
++	man/vlmgr.1 \
++	man/vltest.1 \
++	man/vltsv.1
++
++man3_MANS = \
++	man/cabin.3 \
++	man/cropen.3 \
++	man/curia.3 \
++	man/depot.3 \
++	man/dpopen.3 \
++	man/hovel.3 \
++	man/odeum.3 \
++	man/odopen.3 \
++	man/qdbm.3 \
++	man/relic.3 \
++	man/villa.3 \
++	man/vista.3 \
++	man/vlopen.3 \
++	man/cabin.3 \
++	man/cropen.3 \
++	man/curia.3 \
++	man/depot.3 \
++	man/dpopen.3 \
++	man/hovel.3 \
++	man/odeum.3 \
++	man/odopen.3 \
++	man/qdbm.3 \
++	man/relic.3 \
++	man/villa.3 \
++	man/vista.3 \
++	man/vlopen.3
++
++pkgconfigdir = $(libdir)/pkgconfig
++pkgconfig_DATA = qdbm.pc
++
+diff -Nur o.qdbm-1.8.48/cgi/Makefile.am n.qdbm-1.8.48/cgi/Makefile.am
+--- o.qdbm-1.8.48/cgi/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ n.qdbm-1.8.48/cgi/Makefile.am	2006-04-17 15:40:47.000000000 +0200
+@@ -0,0 +1,19 @@
++AM_CPPFLAGS = -I..	-D_XOPEN_SOURCE_EXTENDED=1 -D_GNU_SOURCE=1 -D__EXTENSIONS__=1 -D_HPUX_SOURCE=1 \
++					-D_POSIX_MAPPED_FILES=1 -D_POSIX_SYNCHRONIZED_IO=1 -DNDEBUG
++
++AM_CFLAGS = -Wall -ansi -pedantic -fsigned-char
++
++libexec_PROGRAMS = qadm.cgi qupl.cgi qfts.cgi
++
++qadm_cgi_SOURCES = qadm.c
++qadm_cgi_LDADD = ../libqdbm.la
++
++qupl_cgi_SOURCES = qupl.c
++qupl_cgi_LDADD = ../libqdbm.la
++
++qfts_cgi_SOURCES = qfts.c
++qfts_cgi_LDADD = ../libqdbm.la
++
++conf_templatesdir = $(datadir)/qdbm/cgi
++conf_templates_DATA = qadm.conf qupl.conf qfts.conf
++
+diff -Nur o.qdbm-1.8.48/cgi/configure.in n.qdbm-1.8.48/cgi/configure.in
+--- o.qdbm-1.8.48/cgi/configure.in	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/cgi/configure.in	2006-04-17 15:40:47.000000000 +0200
+@@ -1,54 +1,13 @@
+ # Source of configuration for CGI scripts of QDBM
+ 
+-
+-
+ #================================================================
+ # Generic Settings
+ #================================================================
+ 
+-
+-# Targets
+-AC_INIT(qdbm-cgi, 0.0.1)
+-
+-# Export variables
+-TARGETS="all"
+-
+-# Building paths
+-pathtmp="$PATH"
+-PATH="$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+-PATH="$PATH:/usr/ccs/bin:/usr/ucb:/usr/xpg4/bin:/usr/xpg6/bin:$pathtmp"
+-LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+-LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+-CPATH="$HOME/include:/usr/local/include:$CPATH"
+-export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH
+-
+-
+-
+-#================================================================
+-# Options
+-#================================================================
+-
+-
+-# Debug mode
+-AC_ARG_ENABLE(debug, [  --enable-debug          build for debugging])
+-if test "$enable_debug" = "yes"
+-then
+-  TARGETS="debug"
+-fi
+-
+-# Developping mode
+-AC_ARG_ENABLE(devel, [  --enable-devel          build for development])
+-if test "$enable_devel" = "yes"
+-then
+-  TARGETS="devel"
+-fi
+-
+-
+-
+-#================================================================
+-# Checking Commands to Build with
+-#================================================================
+-
++AC_INIT([Makefile.am])
++AM_INIT_AUTOMAKE(qdbm-cgi, 0.0.1, [])
++#AC_CONFIG_HEADER([config.h])
++AC_PROG_LIBTOOL
+ 
+ # C compiler
+ AC_PROG_CC
+@@ -60,12 +19,10 @@
+ fi
+ 
+ 
+-
+ #================================================================
+ # Checking Libraries
+ #================================================================
+ 
+-
+ # Underlying libraries
+ AC_CHECK_LIB(c, main)
+ AC_CHECK_LIB(pthread, main)
+@@ -74,33 +31,10 @@
+ AC_CHECK_LIB(bz2, main)
+ AC_CHECK_LIB(iconv, main)
+ 
+-# Fundamental QDBM libraries
+-AC_CHECK_LIB(qdbm, main, true,
+-  printf 'checking whether /usr/local/lib/libqdbm.* is... '
+-  if ls /usr/local/lib/libqdbm.* > /dev/null 2>&1
+-  then
+-    printf 'yes\n'
+-  else
+-    printf 'no\n'
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: Install QDBM libraries before installation.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-)
+-
+-
+-
+ #================================================================
+ # Generic Settings
+ #================================================================
+ 
+-
+-# Export variables
+-AC_SUBST(TARGETS)
+-
+-# Targets
+ AC_OUTPUT(Makefile)
+ 
+-
+-
+ # END OF FILE
+diff -Nur o.qdbm-1.8.48/configure.in n.qdbm-1.8.48/configure.in
+--- o.qdbm-1.8.48/configure.in	2006-04-17 15:40:44.000000000 +0200
++++ n.qdbm-1.8.48/configure.in	2006-04-17 15:40:45.000000000 +0200
+@@ -8,27 +8,19 @@
+ 
+ 
+ # Targets
+-AC_INIT(qdbm, 1.8.48)
++AC_INIT([Makefile.am])
++AM_INIT_AUTOMAKE(qdbm, 1.8.48, [])
++#AC_CONFIG_HEADER([config.h])
+ 
+ # Export variables
+-LIBVER=12
+-LIBREV=9
+-TARGETS="all"
++LIBVER=21
++LIBREV=0
++LIBAGE=9
++
+ MYDEFS=""
+ MGWLIBS=""
+-LD="ld"
+-AR="ar"
+-
+-# Building paths
+-pathtmp="$PATH"
+-PATH="$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+-PATH="$PATH:/usr/ccs/bin:/usr/ucb:/usr/xpg4/bin:/usr/xpg6/bin:$pathtmp"
+-LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+-LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+-CPATH="$HOME/include:/usr/local/include:$CPATH"
+-export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH
+-
+ 
++AC_PROG_LIBTOOL
+ 
+ #================================================================
+ # Options
+@@ -42,24 +34,6 @@
+ isiconv=""
+ isnowarn=""
+ 
+-# Debug mode
+-AC_ARG_ENABLE(debug,
+-  AC_HELP_STRING([--enable-debug], [build for debugging]))
+-if test "$enable_debug" = "yes"
+-then
+-  TARGETS="debug"
+-  enables="$enables (debug)"
+-fi
+-
+-# Developping mode
+-AC_ARG_ENABLE(devel,
+-  AC_HELP_STRING([--enable-devel], [build for development]))
+-if test "$enable_devel" = "yes"
+-then
+-  TARGETS="devel"
+-  enables="$enables (devel)"
+-fi
+-
+ # Enable POSIX thread
+ AC_ARG_ENABLE(pthread,
+   AC_HELP_STRING([--enable-pthread], [use POSIX thread and make APIs thread-safe]))
+@@ -164,40 +138,6 @@
+   fi
+ fi
+ 
+-# Linker
+-printf 'checking for ld... '
+-if which ld | grep '/ld$' > /dev/null 2>&1
+-then
+-  LD=`which ld`
+-  printf '%s\n' "$LD"
+-else
+-  printf 'no\n'
+-  if test "$isnowarn" != "yes"
+-  then
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: ld is not found in PATH.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-fi
+-
+-# Archiver
+-printf 'checking for ar... '
+-if which ar | grep '/ar$' > /dev/null 2>&1
+-then
+-  AR=`which ar`
+-  printf '%s\n' "$AR"
+-else
+-  printf 'no\n'
+-  if test "$isnowarn" != "yes"
+-  then
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: ar is not found in PATH.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-fi
+-
+-
+-
+ #================================================================
+ # Checking Libraries
+ #================================================================
+@@ -236,18 +176,6 @@
+   AC_CHECK_LIB(iconv, main)
+ fi
+ 
+-# Duplication of QDBM for C
+-AC_CHECK_LIB(qdbm, main,
+-  if test "$isnowarn" != "yes"
+-  then
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: The existing library was detected.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-)
+-
+-
+-
+ #================================================================
+ # Generic Settings
+ #================================================================
+@@ -256,20 +184,11 @@
+ # Export variables
+ AC_SUBST(LIBVER)
+ AC_SUBST(LIBREV)
+-AC_SUBST(TARGETS)
++AC_SUBST(LIBAGE)
+ AC_SUBST(MYDEFS)
+ AC_SUBST(MGWLIBS)
+-AC_SUBST(LD)
+-AC_SUBST(AR)
+ 
+ # Targets
+ AC_OUTPUT(Makefile LTmakefile qdbm.spec qdbm.pc)
+ 
+-# Messages
+-printf '#================================================================\n'
+-printf '# Ready to make.\n'
+-printf '#================================================================\n'
+-
+-
+-
+ # END OF FILE
+diff -Nur o.qdbm-1.8.48/java/Makefile.am n.qdbm-1.8.48/java/Makefile.am
+--- o.qdbm-1.8.48/java/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ n.qdbm-1.8.48/java/Makefile.am	2006-04-17 15:40:46.000000000 +0200
+@@ -0,0 +1,33 @@
++AM_CPPFLAGS = -I..	-D_XOPEN_SOURCE_EXTENDED=1 -D_GNU_SOURCE=1 -D__EXTENSIONS__=1 -D_HPUX_SOURCE=1 -D_POSIX_MAPPED_FILES=1 \
++					-D_POSIX_SYNCHRONIZED_IO=1 -DPIC=1 -D_REENTRANT=1 -DNDEBUG \
++					-I@MYJAVAHOME@/include -I@MYJAVAHOME@/include/@JVMPLATFORM@ -I@MYJAVAHOME@/Headers \
++					@MYDEFS@
++
++AM_CFLAGS = -Wall -fsigned-char
++
++lib_LTLIBRARIES = libjqdbm.la
++libjqdbm_la_SOURCES = jcuria.c jdepot.c jutil.c jvilla.c
++libjqdbm_la_LDFLAGS = -version-info @LIBVER@:@LIBREV@:@LIBAGE@
++libjqdbm_la_LIBADD = ../libqdbm.la
++
++qdbmdir = $(libdir)
++qdbm_JAVA = \
++	ADBM.java \
++	Curia.java \
++	CuriaException.java \
++	CuriaTester.java \
++	DBMException.java \
++	Depot.java \
++	DepotException.java \
++	DepotTester.java \
++	Util.java \
++	Villa.java \
++	VillaException.java \
++	VillaTester.java
++
++install-qdbmJAVA: classqdbm.stamp
++	@JAR@ cvf qdbm.jar qdbm/*.class ; \
++	test -z "$(qdbmdir)" || $(mkdir_p) "$(DESTDIR)$(qdbmdir)" ; \
++	echo " $(INSTALL_DATA) 'qdbm.jar' '$(DESTDIR)$(qdbmdir)/'"; \
++	$(INSTALL_DATA) "qdbm.jar" "$(DESTDIR)$(qdbmdir)/";
++
+diff -Nur o.qdbm-1.8.48/java/configure.in n.qdbm-1.8.48/java/configure.in
+--- o.qdbm-1.8.48/java/configure.in	2006-04-17 15:40:44.000000000 +0200
++++ n.qdbm-1.8.48/java/configure.in	2006-04-17 15:40:46.000000000 +0200
+@@ -1,19 +1,14 @@
+ # Source of configuration for Java interface of QDBM
+ 
+-
+-
+-#================================================================
+-# Generic Settings
+-#================================================================
+-
+-
+-# Targets
+-AC_INIT(qdbm-java, 1.0.0)
++#AC_INIT(qdbm-java, 1.0.0)
++AC_INIT([Makefile.am])
++AM_INIT_AUTOMAKE(qdbm-java, 1.0.0)
++#AC_CONFIG_HEADER([config.h])
+ 
+ # Export variables
+ LIBVER=1
+ LIBREV=0
+-TARGETS="all"
++LIBAGE=0
+ MYJAVAHOME="/usr/java"
+ JVMPLATFORM="linux"
+ JAVAC="javac"
+@@ -22,46 +17,13 @@
+ JAVADOC="javadoc"
+ JAVARUN="java"
+ MYDEFS=""
+-LD="ld"
+-
+-# Building paths
+-pathtmp="$PATH"
+-PATH="$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+-PATH="$PATH:/usr/ccs/bin:/usr/ucb:/usr/xpg4/bin:/usr/xpg6/bin:$pathtmp"
+-LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+-LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+-CPATH="$HOME/include:/usr/local/include:$CPATH"
+-export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH
+ 
+-
+-
+-#================================================================
+-# Options
+-#================================================================
+-
+-
+-# Debug mode
+-AC_ARG_ENABLE(debug,
+-  AC_HELP_STRING([--enable-debug], [build for debugging]))
+-if test "$enable_debug" = "yes"
+-then
+-  TARGETS="debug"
+-fi
+-
+-# Developping mode
+-AC_ARG_ENABLE(devel,
+-  AC_HELP_STRING([--enable-devel], [build for development]))
+-if test "$enable_devel" = "yes"
+-then
+-  TARGETS="devel"
+-fi
++AC_PROG_LIBTOOL
+ 
+ # Enable gcj
+ AC_ARG_WITH(gcj,
+   AC_HELP_STRING([--with-gcj], [build with gcj, gcc for Java]))
+ 
+-
+-
+ #================================================================
+ # Checking Commands to Build with
+ #================================================================
+@@ -183,29 +145,6 @@
+ AC_CHECK_LIB(bz2, main)
+ AC_CHECK_LIB(iconv, main)
+ 
+-# Fundamental QDBM libraries
+-AC_CHECK_LIB(qdbm, main, true,
+-  printf 'checking whether /usr/local/lib/libqdbm.* is... '
+-  if ls /usr/local/lib/libqdbm.* > /dev/null 2>&1
+-  then
+-    printf 'yes\n'
+-  else
+-    printf 'no\n'
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: Install QDBM libraries before installation.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-)
+-
+-# Duplication of QDBM for Java
+-AC_CHECK_LIB(jqdbm, main,
+-  printf '#================================================================\n' 1>&2
+-  printf '# WARNING: An old library was detected.\n' 1>&2
+-  printf '#================================================================\n' 1>&2
+-)
+-
+-
+-
+ #================================================================
+ # Generic Settings
+ #================================================================
+@@ -222,7 +161,7 @@
+ # Export variables
+ AC_SUBST(LIBVER)
+ AC_SUBST(LIBREV)
+-AC_SUBST(TARGETS)
++AC_SUBST(LIBAGE)
+ AC_SUBST(MYJAVAHOME)
+ AC_SUBST(JVMPLATFORM)
+ AC_SUBST(JAVAC)
+@@ -231,11 +170,8 @@
+ AC_SUBST(JAVADOC)
+ AC_SUBST(JAVARUN)
+ AC_SUBST(MYDEFS)
+-AC_SUBST(LD)
+ 
+ # Targets
+ AC_OUTPUT(Makefile)
+ 
+-
+-
+ # END OF FILE
+diff -Nur o.qdbm-1.8.48/perl/Makefile.in n.qdbm-1.8.48/perl/Makefile.in
+--- o.qdbm-1.8.48/perl/Makefile.in	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/perl/Makefile.in	2006-04-17 15:40:46.000000000 +0200
+@@ -26,12 +26,10 @@
+ 
+ # Building binaries
+ CC = gcc
+-INC = -I. -I../.. -I$(HOME)/include -I/usr/local/include
++INC = -I. -I../..
+ OPTIMIZE = -O2
+ LD = ld
+-LIBS = -L../.. -I$(HOME)/lib -L/usr/local/lib -lqdbm @LIBS@
+-RUNENV = LD_LIBRARY_PATH=.:..:../..:/usr/local/lib:$(HOME)/lib
+-
++LIBS = -L../.. -L../.libs -L../../.libs -lqdbm @LIBS@
+ 
+ 
+ #================================================================
+@@ -41,17 +39,17 @@
+ 
+ all :
+ 	cd depot && [ -f Makefile ] || \
+-	  $(RUNENV) perl Makefile.PL CC="$(CC)" INC="$(INC)" OPTIMIZE="$(OPTIMIZE)" \
++	  perl Makefile.PL CC="$(CC)" INC="$(INC)" OPTIMIZE="$(OPTIMIZE)" INSTALLDIRS=vendor \
+ 	    LD="$(LD)" LIBS="$(LIBS)" PREFIX="$(prefix)" ; \
+-	  $(RUNENV) make
++	  make
+ 	cd curia && [ -f Makefile ] || \
+-	  $(RUNENV) perl Makefile.PL CC="$(CC)" INC="$(INC)" OPTIMIZE="$(OPTIMIZE)" \
++	  perl Makefile.PL CC="$(CC)" INC="$(INC)" OPTIMIZE="$(OPTIMIZE)" INSTALLDIRS=vendor \
+ 	    LD="$(LD)" LIBS="$(LIBS)" PREFIX="$(prefix)" ; \
+-	  $(RUNENV) make
++	  make
+ 	cd villa && [ -f Makefile ] || \
+-	  $(RUNENV) perl Makefile.PL CC="$(CC)" INC="$(INC)" OPTIMIZE="$(OPTIMIZE)" \
++	  perl Makefile.PL CC="$(CC)" INC="$(INC)" OPTIMIZE="$(OPTIMIZE)" INSTALLDIRS=vendor \
+ 	    LD="$(LD)" LIBS="$(LIBS)" PREFIX="$(prefix)" ; \
+-	  $(RUNENV) make
++	  make
+ 	@printf '\n'
+ 	@printf '#================================================================\n'
+ 	@printf '# Ready to install.\n'
+@@ -59,19 +57,19 @@
+ 
+ 
+ clean :
+-	cd depot && if [ -f Makefile ] ; then $(RUNENV) make -i clean ; fi || true
++	cd depot && if [ -f Makefile ] ; then make -i clean ; fi || true
+ 	cd depot && rm -rf Makefile blib pm_to_blib *.c *.o *.bs *.old casket *~
+-	cd curia && if [ -f Makefile ] ; then $(RUNENV) make -i clean ; fi || true
++	cd curia && if [ -f Makefile ] ; then make -i clean ; fi || true
+ 	cd curia && rm -rf Makefile blib pm_to_blib *.c *.o *.bs *.old casket *~
+-	cd villa && if [ -f Makefile ] ; then $(RUNENV) make -i clean ; fi || true
++	cd villa && if [ -f Makefile ] ; then make -i clean ; fi || true
+ 	cd villa && rm -rf Makefile blib pm_to_blib *.c *.o *.bs *.old casket *~
+ 	rm -rf casket *~
+ 
+ 
+ install :
+-	cd depot && $(RUNENV) make install
+-	cd curia && $(RUNENV) make install
+-	cd villa && $(RUNENV) make install
++	cd depot && make pure_install
++	cd curia && make pure_install
++	cd villa && make pure_install
+ 	mkdir -p $(DESTDIR)$(MYBINDIR)
+ 	cp -f $(MYBINS) $(DESTDIR)$(MYBINDIR)
+ 	mkdir -p $(DESTDIR)$(MYDATADIR)
+@@ -97,27 +95,27 @@
+ 	sync ; sync
+ 	cd depot && rm -rf casket
+ 	cd depot && \
+-	  $(RUNENV) perl -w pldptest write casket 10000 1000
++	  perl -w pldptest write casket 10000 1000
+ 	cd depot && \
+-	  $(RUNENV) perl -w pldptest read casket
++	  perl -w pldptest read casket
+ 	cd depot && \
+-	  $(RUNENV) perl -w pldptest tie casket
++	  perl -w pldptest tie casket
+ 	cd depot && rm -rf casket
+ 	cd curia && rm -rf casket
+ 	cd curia && \
+-	  $(RUNENV) perl -w plcrtest write casket 10000 100 10
++	  perl -w plcrtest write casket 10000 100 10
+ 	cd curia && \
+-	  $(RUNENV) perl -w plcrtest read casket
++	  perl -w plcrtest read casket
+ 	cd curia && \
+-	  $(RUNENV) perl -w plcrtest tie casket
++	  perl -w plcrtest tie casket
+ 	cd curia && rm -rf casket
+ 	cd villa && rm -rf casket
+ 	cd villa && \
+-	  $(RUNENV) perl -w plvltest write casket 10000
++	  perl -w plvltest write casket 10000
+ 	cd villa && \
+-	  $(RUNENV) perl -w plvltest read casket
++	  perl -w plvltest read casket
+ 	cd villa && \
+-	  $(RUNENV) perl -w plvltest tie casket
++	  perl -w plvltest tie casket
+ 	cd villa && rm -rf casket
+ 	@printf '\n'
+ 	@printf '#================================================================\n'
+@@ -127,7 +125,7 @@
+ 
+ doc :
+ 	make docclean
+-	$(RUNENV) ./mypldoc -d plapidoc -t "QDBM for Perl" -a overview \
++	./mypldoc -d plapidoc -t "QDBM for Perl" -a overview \
+ 	  depot/Depot.pm curia/Curia.pm villa/Villa.pm
+ 
+ 
+diff -Nur o.qdbm-1.8.48/perl/configure.in n.qdbm-1.8.48/perl/configure.in
+--- o.qdbm-1.8.48/perl/configure.in	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/perl/configure.in	2006-04-17 15:40:46.000000000 +0200
+@@ -1,19 +1,8 @@
+ # Source of configuration for Perl interface of QDBM
+ 
+-
+-
+ # Targets
+ AC_INIT(qdbm-perl, 1.0.0)
+ 
+-# Building paths
+-pathtmp="$PATH"
+-PATH="$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+-PATH="$PATH:/usr/ccs/bin:/usr/ucb:/usr/xpg4/bin:/usr/xpg6/bin:$pathtmp"
+-LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+-LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+-CPATH="$HOME/include:/usr/local/include:$CPATH"
+-export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH
+-
+ # Setting the default prefix
+ if test "$prefix" = NONE
+ then
+@@ -28,23 +17,7 @@
+ AC_CHECK_LIB(bz2, main)
+ AC_CHECK_LIB(iconv, main)
+ 
+-# Duplication of QDBM for Perl
+-AC_CHECK_LIB(qdbm, main, true,
+-  printf 'checking whether /usr/local/lib/libqdbm.* is... '
+-  if ls /usr/local/lib/libqdbm.* > /dev/null 2>&1
+-  then
+-    printf 'yes\n'
+-  else
+-    printf 'no\n'
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: Install QDBM libraries before installation.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-)
+-
+ # Targets
+ AC_OUTPUT(Makefile)
+ 
+-
+-
+ # END OF FILE
+diff -Nur o.qdbm-1.8.48/plus/Makefile.am n.qdbm-1.8.48/plus/Makefile.am
+--- o.qdbm-1.8.48/plus/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ n.qdbm-1.8.48/plus/Makefile.am	2006-04-17 15:40:46.000000000 +0200
+@@ -0,0 +1,23 @@
++AM_CPPFLAGS = -I..	-D_XOPEN_SOURCE_EXTENDED=1 -D_GNU_SOURCE=1 -D__EXTENSIONS__=1 -D_HPUX_SOURCE=1 \
++					-D_POSIX_MAPPED_FILES=1 -D_POSIX_SYNCHRONIZED_IO=1 -DPIC=1 -D_REENTRANT=1 -DNDEBUG
++
++AM_CXXFLAGS = -Wall -ansi -pedantic -fsigned-char
++
++lib_LTLIBRARIES = libxqdbm.la
++libxqdbm_la_SOURCES = xqdbm.cc xadbm.cc xdepot.cc xcuria.cc xvilla.cc
++libxqdbm_la_LDFLAGS = -version-info @LIBVER@:@LIBREV@:@LIBAGE@
++libxqdbm_la_LIBADD = ../libqdbm.la
++
++include_HEADERS = xqdbm.h xadbm.h xdepot.h xcuria.h xvilla.h
++
++bin_PROGRAMS = xdptest xcrtest xvltest
++
++xdptest_SOURCES = xdptest.cc
++xdptest_LDADD = libxqdbm.la ../libqdbm.la
++
++xcrtest_SOURCES = xcrtest.cc
++xcrtest_LDADD = libxqdbm.la ../libqdbm.la
++
++xvltest_SOURCES = xvltest.cc
++xvltest_LDADD = libxqdbm.la ../libqdbm.la
++
+diff -Nur o.qdbm-1.8.48/plus/configure.in n.qdbm-1.8.48/plus/configure.in
+--- o.qdbm-1.8.48/plus/configure.in	2006-04-17 15:40:44.000000000 +0200
++++ n.qdbm-1.8.48/plus/configure.in	2006-04-17 15:40:46.000000000 +0200
+@@ -1,53 +1,16 @@
+ # Source of configuration for C++ interface of QDBM
+ 
+-
+-
+-#================================================================
+-# Generic Settings
+-#================================================================
+-
+-
+ # Targets
+-AC_INIT(qdbm-plus, 1.0.0)
++AC_INIT([Makefile.am])
++AM_INIT_AUTOMAKE(qdbm-plus, 1.0.0, [])
++#AC_CONFIG_HEADER([config.h])
+ 
+ # Export variables
+ LIBVER=2
+ LIBREV=0
+-TARGETS="all"
+-LD="ld"
+-AR="ar"
+-
+-# Building paths
+-pathtmp="$PATH"
+-PATH="$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+-PATH="$PATH:/usr/ccs/bin:/usr/ucb:/usr/xpg4/bin:/usr/xpg6/bin:$pathtmp"
+-LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+-LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+-CPATH="$HOME/include:/usr/local/include:$CPATH"
+-export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH
+-
+-
+-
+-#================================================================
+-# Options
+-#================================================================
+-
+-
+-# Debug mode
+-AC_ARG_ENABLE(debug, [  --enable-debug          build for debugging])
+-if test "$enable_debug" = "yes"
+-then
+-  TARGETS="debug"
+-fi
+-
+-# Developping mode
+-AC_ARG_ENABLE(devel, [  --enable-devel          build for development])
+-if test "$enable_devel" = "yes"
+-then
+-  TARGETS="devel"
+-fi
+-
++LIBAGE=0
+ 
++AC_PROG_LIBTOOL
+ 
+ #================================================================
+ # Checking Commands to Build with
+@@ -110,28 +73,6 @@
+ AC_CHECK_LIB(iconv, main)
+ AC_CHECK_LIB(stdc++, main)
+ 
+-# Fundamental QDBM libraries
+-AC_CHECK_LIB(qdbm, main, true,
+-  printf 'checking whether /usr/local/lib/libqdbm.* is... '
+-  if ls /usr/local/lib/libqdbm.* > /dev/null 2>&1
+-  then
+-    printf 'yes\n'
+-  else
+-    printf 'no\n'
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: Install QDBM libraries before installation.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-)
+-
+-# Duplication of QDBM for C++
+-AC_CHECK_LIB(xqdbm, main,
+-  printf '#================================================================\n' 1>&2
+-  printf '# WARNING: The existing library was detected.\n' 1>&2
+-  printf '#================================================================\n' 1>&2
+-)
+-
+-
+ 
+ #================================================================
+ # Generic Settings
+@@ -141,13 +82,9 @@
+ # Export variables
+ AC_SUBST(LIBVER)
+ AC_SUBST(LIBREV)
+-AC_SUBST(TARGETS)
+-AC_SUBST(LD)
+-AC_SUBST(AR)
++AC_SUBST(LIBAGE)
+ 
+ # Targets
+ AC_OUTPUT(Makefile)
+ 
+-
+-
+ # END OF FILE
+diff -Nur o.qdbm-1.8.48/ruby/Makefile.in n.qdbm-1.8.48/ruby/Makefile.in
+--- o.qdbm-1.8.48/ruby/Makefile.in	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/ruby/Makefile.in	2006-04-17 15:40:46.000000000 +0200
+@@ -25,8 +25,6 @@
+ DESTDIR =
+ 
+ # Building binaries
+-RUNENV = LD_LIBRARY_PATH=.:..:../..:/usr/local/lib
+-
+ 
+ 
+ #================================================================
+@@ -35,9 +33,9 @@
+ 
+ 
+ all :
+-	cd depot && [ -f Makefile ] || $(RUNENV) ruby extconf.rb ; $(RUNENV) make
+-	cd curia && [ -f Makefile ] || $(RUNENV) ruby extconf.rb ; $(RUNENV) make
+-	cd villa && [ -f Makefile ] || $(RUNENV) ruby extconf.rb ; $(RUNENV) make
++	cd depot && [ -f Makefile ] || ruby extconf.rb ; make
++	cd curia && [ -f Makefile ] || ruby extconf.rb ; make
++	cd villa && [ -f Makefile ] || ruby extconf.rb ; make
+ 	@printf '\n'
+ 	@printf '#================================================================\n'
+ 	@printf '# Ready to install.\n'
+@@ -45,11 +43,11 @@
+ 
+ 
+ clean :
+-	cd depot ; if [ -f Makefile ] ; then $(RUNENV) make -i clean ; fi || true
++	cd depot ; if [ -f Makefile ] ; then make -i clean ; fi || true
+ 	cd depot ; rm -rf Makefile *.o *.so *.log casket *~
+-	cd curia ; if [ -f Makefile ] ; then $(RUNENV) make -i clean ; fi || true
++	cd curia ; if [ -f Makefile ] ; then make -i clean ; fi || true
+ 	cd curia ; rm -rf Makefile *.o *.so *.log casket *~
+-	cd villa ; if [ -f Makefile ] ; then $(RUNENV) make -i clean ; fi || true
++	cd villa ; if [ -f Makefile ] ; then make -i clean ; fi || true
+ 	cd villa ; rm -rf Makefile *.o *.so *.log casket *~
+ 	rm -rf casket *~
+ 
+@@ -85,27 +83,27 @@
+ 	sync ; sync
+ 	cd depot && rm -rf casket
+ 	cd depot && \
+-	  $(RUNENV) ruby -w -Ilib rbdptest write casket 10000 1000
++	  ruby -w -Ilib rbdptest write casket 10000 1000
+ 	cd depot && \
+-	  $(RUNENV) ruby -w -Ilib rbdptest read casket
++	  ruby -w -Ilib rbdptest read casket
+ 	cd depot && \
+-	  $(RUNENV) ruby -w -Ilib rbdptest misc casket
++	  ruby -w -Ilib rbdptest misc casket
+ 	cd depot && rm -rf casket
+ 	cd curia && rm -rf casket
+ 	cd curia && \
+-	  $(RUNENV) ruby -w -Ilib rbcrtest write casket 10000 1000 10
++	  ruby -w -Ilib rbcrtest write casket 10000 1000 10
+ 	cd curia && \
+-	  $(RUNENV) ruby -w -Ilib rbcrtest read casket
++	  ruby -w -Ilib rbcrtest read casket
+ 	cd curia && \
+-	  $(RUNENV) ruby -w -Ilib rbcrtest misc casket
++	  ruby -w -Ilib rbcrtest misc casket
+ 	cd curia && rm -rf casket
+ 	cd villa && rm -rf casket
+ 	cd villa && \
+-	  $(RUNENV) ruby -w -Ilib rbvltest write casket 10000
++	  ruby -w -Ilib rbvltest write casket 10000
+ 	cd villa && \
+-	  $(RUNENV) ruby -w -Ilib rbvltest read casket
++	  ruby -w -Ilib rbvltest read casket
+ 	cd villa && \
+-	  $(RUNENV) ruby -w -Ilib rbvltest misc casket
++	  ruby -w -Ilib rbvltest misc casket
+ 	cd villa && rm -rf casket
+ 	@printf '\n'
+ 	@printf '#================================================================\n'
+@@ -115,7 +113,7 @@
+ 
+ doc :
+ 	make docclean
+-	$(RUNENV) ./myrbdoc -d rbapidoc -t "QDBM for Ruby" -a overview \
++	./myrbdoc -d rbapidoc -t "QDBM for Ruby" -a overview \
+ 	  depot/lib/depot.rb curia/lib/curia.rb villa/lib/villa.rb
+ 
+ 
+diff -Nur o.qdbm-1.8.48/ruby/configure.in n.qdbm-1.8.48/ruby/configure.in
+--- o.qdbm-1.8.48/ruby/configure.in	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/ruby/configure.in	2006-04-17 15:40:46.000000000 +0200
+@@ -1,36 +1,11 @@
+ # Source of configuration for Ruby interface of QDBM
+ 
+-
+-
+-# Targets
+ AC_INIT(qdbm-ruby, 1.0.0)
+-
+-# Building paths
+-pathtmp="$PATH"
+-PATH="$HOME/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+-PATH="$PATH:/usr/ccs/bin:/usr/ucb:/usr/xpg4/bin:/usr/xpg6/bin:$pathtmp"
+-LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+-LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+-CPATH="$HOME/include:/usr/local/include:$CPATH"
+-export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH
+-
+-# Duplication of QDBM for Ruby
+-AC_CHECK_LIB(qdbm, main, true,
+-  printf 'checking whether /usr/local/lib/libqdbm.* is... '
+-  if ls /usr/local/lib/libqdbm.* > /dev/null 2>&1
+-  then
+-    printf 'yes\n'
+-  else
+-    printf 'no\n'
+-    printf '#================================================================\n' 1>&2
+-    printf '# WARNING: Install QDBM libraries before installation.\n' 1>&2
+-    printf '#================================================================\n' 1>&2
+-  fi
+-)
++#AC_INIT([Makefile.am])
++#AM_AUTOMAKE_INIT(qdbm-ruby, 1.0.0, [])
++#AC_CONFIG_HEADER([config.h])
+ 
+ # Targets
+ AC_OUTPUT(Makefile)
+ 
+-
+-
+ # END OF FILE
+diff -Nur o.qdbm-1.8.48/ruby/curia/extconf.rb n.qdbm-1.8.48/ruby/curia/extconf.rb
+--- o.qdbm-1.8.48/ruby/curia/extconf.rb	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/ruby/curia/extconf.rb	2006-04-17 15:40:46.000000000 +0200
+@@ -3,9 +3,9 @@
+ dir_config("curia")
+ 
+ home = ENV['HOME']
+-$CFLAGS = "-I. -I../.. -I#{home}/include -I/usr/local/include"
+-$LDFLAGS = "-L../.. -L#{home}/lib -L/usr/local/lib"
+-$LIBS = "-L../.. -L#{home}/lib -L/usr/local/lib"
++$CFLAGS = "-I. -I../.. "
++$LDFLAGS = "-L../.. -L../../.libs "
++$LIBS = "-L../.. -L../../.libs "
+ 
+ have_library("c", "main")
+ have_library("pthread", "main")
+diff -Nur o.qdbm-1.8.48/ruby/depot/extconf.rb n.qdbm-1.8.48/ruby/depot/extconf.rb
+--- o.qdbm-1.8.48/ruby/depot/extconf.rb	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/ruby/depot/extconf.rb	2006-04-17 15:40:46.000000000 +0200
+@@ -3,9 +3,9 @@
+ dir_config("depot")
+ 
+ home = ENV['HOME']
+-$CFLAGS = "-I. -I../.. -I#{home}/include -I/usr/local/include"
+-$LDFLAGS = "-L../.. -L#{home}/lib -L/usr/local/lib"
+-$LIBS = "-L../.. -L#{home}/lib -L/usr/local/lib"
++$CFLAGS = "-I. -I../.. "
++$LDFLAGS = "-L../.. -L../../.libs "
++$LIBS = "-L../.. -L../../.libs "
+ 
+ have_library("c", "main")
+ have_library("pthread", "main")
+diff -Nur o.qdbm-1.8.48/ruby/villa/extconf.rb n.qdbm-1.8.48/ruby/villa/extconf.rb
+--- o.qdbm-1.8.48/ruby/villa/extconf.rb	2006-04-17 15:40:45.000000000 +0200
++++ n.qdbm-1.8.48/ruby/villa/extconf.rb	2006-04-17 15:40:46.000000000 +0200
+@@ -3,9 +3,9 @@
+ dir_config("villa")
+ 
+ home = ENV['HOME']
+-$CFLAGS = "-I. -I../.. -I#{home}/include -I/usr/local/include"
+-$LDFLAGS = "-L../.. -L#{home}/lib -L/usr/local/lib"
+-$LIBS = "-L../.. -L#{home}/lib -L/usr/local/lib"
++$CFLAGS = "-I. -I../.. "
++$LDFLAGS = "-L../.. -L../../.libs "
++$LIBS = "-L../.. -L../../.libs "
+ 
+ have_library("c", "main")
+ have_library("pthread", "main")
