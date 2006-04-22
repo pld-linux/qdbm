@@ -1,8 +1,8 @@
 #
 # Conditional build:
-%bcond_with	java	# with Java bindings
-%bcond_without	perl	# with Perl bindings
-%bcond_without	ruby	# with Ruby bindings
+%bcond_with	java		# with Java bindings
+%bcond_without	perl		# without Perl bindings
+%bcond_without	ruby		# without Ruby bindings
 %bcond_without	static_libs	# don't build static libraries
 #
 Summary:	Quick Database Manager
@@ -18,6 +18,7 @@ Patch0:		%{name}-am_ac.patch
 URL:		http://qdbm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
 %{?with_java:BuildRequires:	jdk}
 %if %{with perl}
@@ -90,7 +91,9 @@ Wi±zania C++ dla QDBM-a.
 Summary:	Header files for QDBM C++ bindings
 Summary(pl):	Pliki nag³ówkowe wi±zañ C++ dla QDBM-a
 Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-plus = %{version}-%{release}
+Requires:	libstdc++-devel
 
 %description plus-devel
 This package contains header files needed to develop programs using
@@ -308,6 +311,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/odtest
 %attr(755,root,root) %{_bindir}/odidx
 %attr(755,root,root) %{_libdir}/libqdbm.so
+%{_libdir}/libqdbm.la
 %{_includedir}/depot.h
 %{_includedir}/curia.h
 %{_includedir}/relic.h
@@ -366,6 +370,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xcrtest
 %attr(755,root,root) %{_bindir}/xvltest
 %attr(755,root,root) %{_libdir}/libxqdbm.so
+%{_libdir}/libxqdbm.la
 %{_includedir}/xqdbm.h
 %{_includedir}/xadbm.h
 %{_includedir}/xdepot.h
