@@ -238,16 +238,16 @@ diff -Nur o.qdbm-1.8.48/configure.in n.qdbm-1.8.48/configure.in
 @@ -9,26 +9,17 @@
  
  # Targets
- AC_INIT(qdbm, 1.8.51)
+ AC_INIT(qdbm, 1.8.53)
 +AM_INIT_AUTOMAKE([])
  
  # Export variables
 -LIBVER=12
--LIBREV=12
+-LIBREV=14
 -TARGETS="all"
-+LIBVER=24
++LIBVER=26
 +LIBREV=0
-+LIBAGE=12
++LIBAGE=14
 +
  MYDEFS=""
  MGWLIBS=""
