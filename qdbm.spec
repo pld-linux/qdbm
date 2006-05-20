@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	java		# with Java bindings
+%bcond_without	java		# with Java bindings
 %bcond_without	perl		# without Perl bindings
 %bcond_without	ruby		# without Ruby bindings
 %bcond_without	static_libs	# don't build static libraries
