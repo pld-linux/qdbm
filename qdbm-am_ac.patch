@@ -6,7 +6,7 @@ diff -Nur o.qdbm-1.8.48/Makefile.am n.qdbm-1.8.48/Makefile.am
 +					-D_POSIX_MAPPED_FILES=1 -D_POSIX_SYNCHRONIZED_IO=1 -DPIC=1 -D_REENTRANT=1 \
 +					@MYDEFS@
 +
-+AM_CFLAGS = -Wall -ansi -pedantic -fsigned-char
++AM_CFLAGS = -Wall -fsigned-char @MYOPTS@
 +
 +lib_LTLIBRARIES = libqdbm.la
 +libqdbm_la_SOURCES = depot.c curia.c relic.c hovel.c cabin.c villa.c vista.c odeum.c myconf.c
@@ -235,21 +235,22 @@ diff -Nur o.qdbm-1.8.48/cgi/configure.in n.qdbm-1.8.48/cgi/configure.in
 diff -Nur o.qdbm-1.8.48/configure.in n.qdbm-1.8.48/configure.in
 --- o.qdbm-1.8.48/configure.in	2006-04-17 15:40:44.000000000 +0200
 +++ n.qdbm-1.8.48/configure.in	2006-04-20 21:38:04.000000000 +0200
-@@ -9,26 +9,17 @@
+@@ -9,27 +9,18 @@
  
  # Targets
- AC_INIT(qdbm, 1.8.55)
+ AC_INIT(qdbm, 1.8.67)
 +AM_INIT_AUTOMAKE([])
  
  # Export variables
--LIBVER=12
--LIBREV=16
+-LIBVER=14
+-LIBREV=3
 -TARGETS="all"
-+LIBVER=28
++LIBVER=17
 +LIBREV=0
-+LIBAGE=16
++LIBAGE=3
 +
  MYDEFS=""
+ MYOPTS=""
  MGWLIBS=""
 -LD="ld"
 -AR="ar"
@@ -353,12 +354,13 @@ diff -Nur o.qdbm-1.8.48/configure.in n.qdbm-1.8.48/configure.in
  #================================================================
  # Generic Settings
  #================================================================
-@@ -256,20 +183,11 @@
+@@ -257,21 +184,12 @@
  # Export variables
  AC_SUBST(LIBVER)
  AC_SUBST(LIBREV)
 -AC_SUBST(TARGETS)
 +AC_SUBST(LIBAGE)
+ AC_SUBST(MYOPTS)
  AC_SUBST(MYDEFS)
  AC_SUBST(MGWLIBS)
 -AC_SUBST(LD)
@@ -378,7 +380,7 @@ diff -Nur o.qdbm-1.8.48/configure.in n.qdbm-1.8.48/configure.in
 diff -Nur o.qdbm-1.8.48/java/Makefile.am n.qdbm-1.8.48/java/Makefile.am
 --- o.qdbm-1.8.48/java/Makefile.am	1970-01-01 01:00:00.000000000 +0100
 +++ n.qdbm-1.8.48/java/Makefile.am	2006-04-20 21:32:07.000000000 +0200
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,34 @@
 +AM_CPPFLAGS = -I..	-D_XOPEN_SOURCE_EXTENDED=1 -D_GNU_SOURCE=1 -D__EXTENSIONS__=1 -D_HPUX_SOURCE=1 -D_POSIX_MAPPED_FILES=1 \
 +					-D_POSIX_SYNCHRONIZED_IO=1 -DPIC=1 -D_REENTRANT=1 -DNDEBUG \
 +					-I@MYJAVAHOME@/include -I@MYJAVAHOME@/include/@JVMPLATFORM@ -I@MYJAVAHOME@/Headers \
@@ -403,6 +405,7 @@ diff -Nur o.qdbm-1.8.48/java/Makefile.am n.qdbm-1.8.48/java/Makefile.am
 +	DepotTester.java \
 +	Util.java \
 +	Villa.java \
++	VillaCursor.java \
 +	VillaException.java \
 +	VillaTester.java
 +
@@ -917,7 +920,7 @@ diff -Nur o.qdbm-1.8.48/ruby/Makefile.in n.qdbm-1.8.48/ruby/Makefile.in
 diff -Nur o.qdbm-1.8.48/ruby/configure.in n.qdbm-1.8.48/ruby/configure.in
 --- o.qdbm-1.8.48/ruby/configure.in	2006-04-17 15:40:45.000000000 +0200
 +++ n.qdbm-1.8.48/ruby/configure.in	2006-04-20 21:37:51.000000000 +0200
-@@ -1,36 +1,8 @@
+@@ -1,42 +1,8 @@
  # Source of configuration for Ruby interface of QDBM
  
 -
@@ -933,6 +936,12 @@ diff -Nur o.qdbm-1.8.48/ruby/configure.in n.qdbm-1.8.48/ruby/configure.in
 -LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
 -CPATH="$HOME/include:/usr/local/include:$CPATH"
 -export PATH LIBRARY_PATH LD_LIBRARY_PATH CPATH
+-
+-# Setting the default prefix
+-if test "$prefix" = NONE
+-then
+-  prefix=`ruby -rrbconfig -e 'puts(Config::CONFIG.fetch("prefix"))'`
+-fi
 -
 -# Duplication of QDBM for Ruby
 -AC_CHECK_LIB(qdbm, main, true,
