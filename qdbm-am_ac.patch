@@ -1,7 +1,7 @@
 diff -Nur o.qdbm-1.8.48/Makefile.am n.qdbm-1.8.48/Makefile.am
 --- o.qdbm-1.8.48/Makefile.am	1970-01-01 01:00:00.000000000 +0100
 +++ n.qdbm-1.8.48/Makefile.am	2006-04-20 21:32:07.000000000 +0200
-@@ -0,0 +1,100 @@
+@@ -0,0 +1,103 @@
 +AM_CPPFLAGS = -I.	-D_XOPEN_SOURCE_EXTENDED=1 -D_GNU_SOURCE=1 -D__EXTENSIONS__=1 -D_HPUX_SOURCE=1 \
 +					-D_POSIX_MAPPED_FILES=1 -D_POSIX_SYNCHRONIZED_IO=1 -DPIC=1 -D_REENTRANT=1 \
 +					@MYDEFS@
@@ -13,7 +13,7 @@ diff -Nur o.qdbm-1.8.48/Makefile.am n.qdbm-1.8.48/Makefile.am
 +include_HEADERS = depot.h curia.h relic.h hovel.h cabin.h villa.h vista.h odeum.h
 +libqdbm_la_LDFLAGS = -version-info @LIBVER@:@LIBREV@:@LIBAGE@
 +
-+bin_PROGRAMS = cbcodec cbtest crmgr crtest crtsv dpmgr dptest dptsv hvmgr hvtest odidx odmgr odtest rlmgr rltest vlmgr vltest vltsv
++bin_PROGRAMS = cbcodec cbtest crmgr crtest crtsv dpmgr dptest dptsv hvmgr hvtest odidx odmgr odtest qmttest rlmgr rltest vlmgr vltest vltsv
 +cbcodec_SOURCES = cbcodec.c
 +cbcodec_LDADD = libqdbm.la
 +cbtest_SOURCES = cbtest.c
@@ -40,6 +40,8 @@ diff -Nur o.qdbm-1.8.48/Makefile.am n.qdbm-1.8.48/Makefile.am
 +odmgr_LDADD = libqdbm.la
 +odtest_SOURCES = odtest.c
 +odtest_LDADD = libqdbm.la
++qmttest_SOURCES = qmttest.c
++qmttest_LDADD = libqdbm.la
 +rlmgr_SOURCES = rlmgr.c
 +rlmgr_LDADD = libqdbm.la
 +rltest_SOURCES = rltest.c
@@ -65,6 +67,7 @@ diff -Nur o.qdbm-1.8.48/Makefile.am n.qdbm-1.8.48/Makefile.am
 +	man/odidx.1 \
 +	man/odmgr.1 \
 +	man/odtest.1 \
++	man/qmttest.1 \
 +	man/rlmgr.1 \
 +	man/rltest.1 \
 +	man/vlmgr.1 \
@@ -238,16 +241,16 @@ diff -Nur o.qdbm-1.8.48/configure.in n.qdbm-1.8.48/configure.in
 @@ -9,27 +9,18 @@
  
  # Targets
- AC_INIT(qdbm, 1.8.67)
+ AC_INIT(qdbm, 1.8.70)
 +AM_INIT_AUTOMAKE([])
  
  # Export variables
 -LIBVER=14
--LIBREV=3
+-LIBREV=6
 -TARGETS="all"
-+LIBVER=17
++LIBVER=20
 +LIBREV=0
-+LIBAGE=3
++LIBAGE=6
 +
  MYDEFS=""
  MYOPTS=""

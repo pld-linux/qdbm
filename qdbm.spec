@@ -8,12 +8,12 @@
 Summary:	Quick Database Manager
 Summary(pl):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
-Version:	1.8.67
+Version:	1.8.70
 Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
-# Source0-md5:	0840ca8441cbe7ea6e8ec0af84343595	
+# Source0-md5:	f4e2ee516b223122565199ff4b032f9f
 Patch0:		%{name}-am_ac.patch
 URL:		http://qdbm.sourceforge.net/
 BuildRequires:	autoconf
@@ -310,6 +310,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/odmgr
 %attr(755,root,root) %{_bindir}/odtest
 %attr(755,root,root) %{_bindir}/odidx
+%attr(755,root,root) %{_bindir}/qmttest
 %attr(755,root,root) %{_libdir}/libqdbm.so
 %{_libdir}/libqdbm.la
 %{_includedir}/depot.h
@@ -339,6 +340,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/odmgr.1*
 %{_mandir}/man1/odtest.1*
 %{_mandir}/man1/odidx.1*
+%{_mandir}/man1/qmttest.1*
 %{_mandir}/man3/qdbm.3*
 %{_mandir}/man3/depot.3*
 %{_mandir}/man3/dpopen.3*
@@ -412,6 +414,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc java/jspex.html java/japidoc
 %lang(ja) %doc java/jspex-ja.html
 %attr(755,root,root) %{_libdir}/libjqdbm.so
+%{_libdir}/libjqdbm.la
 %endif
 
 %if %{with perl}
