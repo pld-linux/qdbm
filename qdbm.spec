@@ -9,7 +9,7 @@ Summary:	Quick Database Manager
 Summary(pl):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.70
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Libraries
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
@@ -28,6 +28,9 @@ BuildRequires:  rpm-perlprov >= 4.1-13
 %{?with_ruby:BuildRequires:	ruby-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%ifnarch %{ix86} %{x86_64}
+%undefine with_java
+%endif
 %define		_libexecdir	%{_libdir}/qdbm
 
 %description
