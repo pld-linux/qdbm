@@ -5,7 +5,7 @@
 %bcond_without	ruby		# without Ruby bindings
 %bcond_without	static_libs	# don't build static libraries
 #
-%ifnarch %{ix86} %{x8664}
+%ifnarch i586 i686 pentium3 pentium4 athlon %{x8664}
 %undefine with_java
 %endif
 #
@@ -13,7 +13,7 @@ Summary:	Quick Database Manager
 Summary(pl):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.70
-Release:	3
+Release:	4
 License:	LGPL
 Group:		Libraries
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
