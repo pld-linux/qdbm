@@ -10,7 +10,7 @@
 %endif
 #
 Summary:	Quick Database Manager
-Summary(pl):	Quick Database Manager - szybki silnik bazy danych
+Summary(pl.UTF-8):   Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.73
 Release:	2
@@ -44,18 +44,18 @@ This package includes API for C; APIs for C++, Java and CGI scripts
 are contained in appropriate subpackages. APIs for Perl and Ruby
 should be installed with a source package.
 
-%description -l pl
+%description -l pl.UTF-8
 QDBM to biblioteka wbudowanej bazy danych kompatybilnej z GDBM i NDBM.
-Obs³uguje bazy danych oparte na haszach oraz B+ drzewach; jest
-tworzona na wzór GDBM-a maj±c na celu nastêpuj±ce trzy punkty: wy¿sz±
-szybko¶æ przetwarzania, mniejszy rozmiar pliku bazy danych i prostsze
+ObsÅ‚uguje bazy danych oparte na haszach oraz B+ drzewach; jest
+tworzona na wzÃ³r GDBM-a majÄ…c na celu nastÄ™pujÄ…ce trzy punkty: wyÅ¼szÄ…
+szybkoÅ›Ä‡ przetwarzania, mniejszy rozmiar pliku bazy danych i prostsze
 API. Ten pakiet zawiera API dla C; API dla C++ i Javy oraz skrypty CGI
-znajduj± siê w odpowiednich podpakietach. API dla Perla i Ruby'ego
-mo¿na doinstalowaæ z pakietu ¼ród³owego.
+znajdujÄ… siÄ™ w odpowiednich podpakietach. API dla Perla i Ruby'ego
+moÅ¼na doinstalowaÄ‡ z pakietu ÅºrÃ³dÅ‚owego.
 
 %package devel
 Summary:	Header files, utilities and documentation for QDBM
-Summary(pl):	Pliki nag³ówkowe, narzêdzia i dokumentacja dla QDBM-a
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe, narzÄ™dzia i dokumentacja dla QDBM-a
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -63,38 +63,38 @@ Requires:	%{name} = %{version}-%{release}
 This package contains header files needed to develop programs using
 the QDBM library. Some utility commands are also provided.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe potrzebne do tworzenia programów z
-u¿yciem biblioteki QDBM. Do³±czone jest tak¿e trochê programów
-narzêdziowych.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe potrzebne do tworzenia programÃ³w z
+uÅ¼yciem biblioteki QDBM. DoÅ‚Ä…czone jest takÅ¼e trochÄ™ programÃ³w
+narzÄ™dziowych.
 
 %package static
 Summary:	QDBM static library
-Summary(pl):	Biblioteka statyczna QDBM
+Summary(pl.UTF-8):   Biblioteka statyczna QDBM
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 QDBM static library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteka statyczna QDBM.
 
 %package plus
 Summary:	C++ bindings for QDBM
-Summary(pl):	Wi±zania C++ dla QDBM-a
+Summary(pl.UTF-8):   WiÄ…zania C++ dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description plus
 QDBM C++ bindings.
 
-%description plus -l pl
-Wi±zania C++ dla QDBM-a.
+%description plus -l pl.UTF-8
+WiÄ…zania C++ dla QDBM-a.
 
 %package plus-devel
 Summary:	Header files for QDBM C++ bindings
-Summary(pl):	Pliki nag³ówkowe wi±zañ C++ dla QDBM-a
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe wiÄ…zaÅ„ C++ dla QDBM-a
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-plus = %{version}-%{release}
@@ -104,13 +104,13 @@ Requires:	libstdc++-devel
 This package contains header files needed to develop programs using
 the QDBM C++ bindings.
 
-%description plus-devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe potrzebne do tworzenia programów z
-u¿yciem wi±zañ C++ QDBM-a.
+%description plus-devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagÅ‚Ã³wkowe potrzebne do tworzenia programÃ³w z
+uÅ¼yciem wiÄ…zaÅ„ C++ QDBM-a.
 
 %package plus-static
 Summary:	C++ static library for QDBM
-Summary(pl):	Statyczna biblioteka C++ QDBM-a
+Summary(pl.UTF-8):   Statyczna biblioteka C++ QDBM-a
 Group:		Development/Libraries
 Requires:	%{name}-plus-devel = %{version}-%{release}
 
@@ -118,13 +118,13 @@ Requires:	%{name}-plus-devel = %{version}-%{release}
 This package contains static library to develop programs using the
 QDBM C++ bindings.
 
-%description plus-static -l pl
-Ten pakiet zawiera bibliotekê statyczn± do tworzenia programów z
-u¿yciem wi±zañ C++ QDBM-a.
+%description plus-static -l pl.UTF-8
+Ten pakiet zawiera bibliotekÄ™ statycznÄ… do tworzenia programÃ³w z
+uÅ¼yciem wiÄ…zaÅ„ C++ QDBM-a.
 
 %package cgi
 Summary:	CGI scripts with QDBM
-Summary(pl):	Skrypty CGI dla QDBM-a
+Summary(pl.UTF-8):   Skrypty CGI dla QDBM-a
 Group:		Applications/Databases
 Requires:	%{name} = %{version}-%{release}
 
@@ -132,25 +132,25 @@ Requires:	%{name} = %{version}-%{release}
 This package contains CGI scripts with QDBM, for administration of
 databases, file uploading, and full-text search.
 
-%description cgi -l pl
-Ten pakiet zawiera skrypty CGI dla QDBM-a s³u¿±ce do administrowania
-bazami danych, przesy³ania plików i wyszukiwania pe³notekstowego.
+%description cgi -l pl.UTF-8
+Ten pakiet zawiera skrypty CGI dla QDBM-a sÅ‚uÅ¼Ä…ce do administrowania
+bazami danych, przesyÅ‚ania plikÃ³w i wyszukiwania peÅ‚notekstowego.
 
 %package java
 Summary:	Java libraries for QDBM
-Summary(pl):	Biblioteki Javy dla QDBM-a
+Summary(pl.UTF-8):   Biblioteki Javy dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description java
 QDBM Java bindings.
 
-%description java -l pl
+%description java -l pl.UTF-8
 Biblioteki Javy dla QDBM-a.
 
 %package java-devel
 Summary:	Java development library for QDBM and documentation
-Summary(pl):	Biblioteka programistyczna Javy dla QDBM-a i dokumentacja
+Summary(pl.UTF-8):   Biblioteka programistyczna Javy dla QDBM-a i dokumentacja
 Group:		Development/Libraries
 Requires:	%{name}-java = %{version}-%{release}
 
@@ -158,25 +158,25 @@ Requires:	%{name}-java = %{version}-%{release}
 This package contains development library needed to develop programs
 using the QDBM Java bindings.
 
-%description java-devel -l pl
-Ten pakiet zawiera bibliotekê programistyczn± potrzebn± do tworzenia
-programów z u¿yciem wi±zañ Javy QDBM-a.
+%description java-devel -l pl.UTF-8
+Ten pakiet zawiera bibliotekÄ™ programistycznÄ… potrzebnÄ… do tworzenia
+programÃ³w z uÅ¼yciem wiÄ…zaÅ„ Javy QDBM-a.
 
 %package perl
 Summary:	Perl libraries for QDBM
-Summary(pl):	Biblioteki Perla dla QDBM-a
+Summary(pl.UTF-8):   Biblioteki Perla dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description perl
 QDBM Perl bindings.
 
-%description perl -l pl
+%description perl -l pl.UTF-8
 Biblioteki Perla dla QDBM-a.
 
 %package ruby
 Summary:	Ruby libraries for QDBM
-Summary(pl):	Biblioteki Ruby dla QDBM-a
+Summary(pl.UTF-8):   Biblioteki Ruby dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %ruby_ver_requires_eq
@@ -184,7 +184,7 @@ Requires:	%{name} = %{version}-%{release}
 %description ruby
 QDBM Ruby bindings.
 
-%description ruby -l pl
+%description ruby -l pl.UTF-8
 Biblioteki Ruby dla QDBM-a.
 
 %prep
