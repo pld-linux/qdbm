@@ -10,7 +10,7 @@
 %endif
 #
 Summary:	Quick Database Manager
-Summary(pl.UTF-8):   Quick Database Manager - szybki silnik bazy danych
+Summary(pl.UTF-8):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.73
 Release:	2
@@ -55,7 +55,7 @@ można doinstalować z pakietu źródłowego.
 
 %package devel
 Summary:	Header files, utilities and documentation for QDBM
-Summary(pl.UTF-8):   Pliki nagłówkowe, narzędzia i dokumentacja dla QDBM-a
+Summary(pl.UTF-8):	Pliki nagłówkowe, narzędzia i dokumentacja dla QDBM-a
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -70,7 +70,7 @@ narzędziowych.
 
 %package static
 Summary:	QDBM static library
-Summary(pl.UTF-8):   Biblioteka statyczna QDBM
+Summary(pl.UTF-8):	Biblioteka statyczna QDBM
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -82,7 +82,7 @@ Biblioteka statyczna QDBM.
 
 %package plus
 Summary:	C++ bindings for QDBM
-Summary(pl.UTF-8):   Wiązania C++ dla QDBM-a
+Summary(pl.UTF-8):	Wiązania C++ dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -94,7 +94,7 @@ Wiązania C++ dla QDBM-a.
 
 %package plus-devel
 Summary:	Header files for QDBM C++ bindings
-Summary(pl.UTF-8):   Pliki nagłówkowe wiązań C++ dla QDBM-a
+Summary(pl.UTF-8):	Pliki nagłówkowe wiązań C++ dla QDBM-a
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-plus = %{version}-%{release}
@@ -110,7 +110,7 @@ użyciem wiązań C++ QDBM-a.
 
 %package plus-static
 Summary:	C++ static library for QDBM
-Summary(pl.UTF-8):   Statyczna biblioteka C++ QDBM-a
+Summary(pl.UTF-8):	Statyczna biblioteka C++ QDBM-a
 Group:		Development/Libraries
 Requires:	%{name}-plus-devel = %{version}-%{release}
 
@@ -124,7 +124,7 @@ użyciem wiązań C++ QDBM-a.
 
 %package cgi
 Summary:	CGI scripts with QDBM
-Summary(pl.UTF-8):   Skrypty CGI dla QDBM-a
+Summary(pl.UTF-8):	Skrypty CGI dla QDBM-a
 Group:		Applications/Databases
 Requires:	%{name} = %{version}-%{release}
 
@@ -138,7 +138,7 @@ bazami danych, przesyłania plików i wyszukiwania pełnotekstowego.
 
 %package java
 Summary:	Java libraries for QDBM
-Summary(pl.UTF-8):   Biblioteki Javy dla QDBM-a
+Summary(pl.UTF-8):	Biblioteki Javy dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -150,7 +150,7 @@ Biblioteki Javy dla QDBM-a.
 
 %package java-devel
 Summary:	Java development library for QDBM and documentation
-Summary(pl.UTF-8):   Biblioteka programistyczna Javy dla QDBM-a i dokumentacja
+Summary(pl.UTF-8):	Biblioteka programistyczna Javy dla QDBM-a i dokumentacja
 Group:		Development/Libraries
 Requires:	%{name}-java = %{version}-%{release}
 
@@ -164,7 +164,7 @@ programów z użyciem wiązań Javy QDBM-a.
 
 %package perl
 Summary:	Perl libraries for QDBM
-Summary(pl.UTF-8):   Biblioteki Perla dla QDBM-a
+Summary(pl.UTF-8):	Biblioteki Perla dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -176,7 +176,7 @@ Biblioteki Perla dla QDBM-a.
 
 %package ruby
 Summary:	Ruby libraries for QDBM
-Summary(pl.UTF-8):   Biblioteki Ruby dla QDBM-a
+Summary(pl.UTF-8):	Biblioteki Ruby dla QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %ruby_ver_requires_eq
