@@ -12,14 +12,13 @@
 Summary:	Quick Database Manager
 Summary(pl.UTF-8):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
-Version:	1.8.73
-Release:	2
+Version:	1.8.75
+Release:	1
 License:	LGPL
 Group:		Libraries
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
-# Source0-md5:	bc4a8068c7e679a145812297b8a061c3
+# Source0-md5:	9f1fca3bf60116b3b3767d32337cde8b
 Patch0:		%{name}-am_ac.patch
-Patch1:		%{name}-link.patch
 URL:		http://qdbm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -190,7 +189,6 @@ Biblioteki Ruby dla QDBM-a.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
