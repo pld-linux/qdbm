@@ -134,16 +134,16 @@ diff -Nur o.qdbm-1.8.75/configure.in qdbm-1.8.75/configure.in
 @@ -9,27 +9,18 @@
  
  # Targets
- AC_INIT(qdbm, 1.8.75)
+ AC_INIT(qdbm, 1.8.77)
 +AM_INIT_AUTOMAKE([])
  
  # Export variables
 -LIBVER=14
--LIBREV=11
+-LIBREV=13
 -TARGETS="all"
-+LIBVER=25
++LIBVER=27
 +LIBREV=0
-+LIBAGE=11
++LIBAGE=13
 +
  MYDEFS=""
  MYOPTS=""
@@ -259,29 +259,6 @@ diff -Nur o.qdbm-1.8.75/configure.in qdbm-1.8.75/configure.in
  #================================================================
  # Generic Settings
  #================================================================
-@@ -290,21 +208,12 @@
- # Export variables
- AC_SUBST(LIBVER)
- AC_SUBST(LIBREV)
--AC_SUBST(TARGETS)
-+AC_SUBST(LIBAGE)
- AC_SUBST(MYDEFS)
- AC_SUBST(MYOPTS)
- AC_SUBST(MGWLIBS)
--AC_SUBST(LD)
--AC_SUBST(AR)
- 
- # Targets
- AC_OUTPUT(Makefile LTmakefile qdbm.spec qdbm.pc)
- 
--# Messages
--printf '#================================================================\n'
--printf '# Ready to make.\n'
--printf '#================================================================\n'
--
--
--
- # END OF FILE
 diff -Nur o.qdbm-1.8.75/java/configure.in qdbm-1.8.75/java/configure.in
 --- o.qdbm-1.8.75/java/configure.in	2006-08-24 08:43:49.000000000 +0200
 +++ qdbm-1.8.75/java/configure.in	2007-03-09 21:39:19.000000000 +0100
@@ -428,12 +405,14 @@ diff -Nur o.qdbm-1.8.75/java/configure.in qdbm-1.8.75/java/configure.in
  AC_SUBST(MYJAVAHOME)
  AC_SUBST(JVMPLATFORM)
  AC_SUBST(JAVAC)
-@@ -250,12 +168,8 @@
+@@ -250,14 +168,8 @@
  AC_SUBST(JAVADOC)
  AC_SUBST(JAVARUN)
  AC_SUBST(MYDEFS)
 -AC_SUBST(MYOPTS)
 -AC_SUBST(LD)
+-AC_SUBST(CPPFLAGS)
+-AC_SUBST(LDFLAGS)
  
  # Targets
  AC_OUTPUT(Makefile)
@@ -875,7 +854,7 @@ diff -Nur o.qdbm-1.8.75/plus/configure.in qdbm-1.8.75/plus/configure.in
  
  #================================================================
  # Generic Settings
-@@ -161,15 +81,9 @@
+@@ -161,17 +81,9 @@
  # Export variables
  AC_SUBST(LIBVER)
  AC_SUBST(LIBREV)
@@ -885,6 +864,8 @@ diff -Nur o.qdbm-1.8.75/plus/configure.in qdbm-1.8.75/plus/configure.in
 -AC_SUBST(LD)
 -AC_SUBST(AR)
 +AC_SUBST(LIBAGE)
+-AC_SUBST(CPPFLAGS)
+-AC_SUBST(LDFLAGS)
  
  # Targets
  AC_OUTPUT(Makefile)
@@ -1099,3 +1080,13 @@ diff -Nur o.qdbm-1.8.75/ruby/villa/extconf.rb qdbm-1.8.75/ruby/villa/extconf.rb
  
  have_library("c", "main")
  have_library("pthread", "main")
+--- qdbm-1.8.77/configure.in	2008-07-16 19:43:10.915338380 +0200
++++ qdbm-1.8.77/configure.in.new	2008-07-16 19:46:25.418673561 +0200
+@@ -208,6 +208,7 @@
+ # Export variables
+ AC_SUBST(LIBVER)
+ AC_SUBST(LIBREV)
++AC_SUBST(LIBAGE)
+ AC_SUBST(TARGETS)
+ AC_SUBST(MYDEFS)
+ AC_SUBST(MYOPTS)
