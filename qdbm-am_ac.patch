@@ -281,7 +281,8 @@ diff -Nur o.qdbm-1.8.75/java/configure.in qdbm-1.8.75/java/configure.in
  LIBREV=0
 -TARGETS="all"
 +LIBAGE=0
- MYJAVAHOME="/usr/java"
+-MYJAVAHOME="/usr/java"
++MYJAVAHOME="/usr"
  JVMPLATFORM="linux"
  JAVAC="javac"
 @@ -22,47 +15,13 @@
