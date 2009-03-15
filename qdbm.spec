@@ -13,7 +13,7 @@ Summary:	Quick Database Manager
 Summary(pl.UTF-8):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.77
-Release:	2
+Release:	3
 License:	LGPL
 Group:		Libraries
 Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
@@ -197,7 +197,7 @@ Biblioteki Ruby dla QDBM-a.
 %{__automake}
 %configure \
 	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
-%{__make}
+%{__make} -j1
 
 cd plus
 %{__libtoolize}
@@ -206,7 +206,7 @@ cd plus
 %{__automake}
 %configure \
 	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
-%{__make}
+%{__make} -j1
 cd ..
 
 %if %{with java}
@@ -217,7 +217,7 @@ cd java
 %{__automake}
 %configure \
 	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
-%{__make}
+%{__make} -j1
 cd ..
 %endif
 
@@ -225,7 +225,7 @@ cd ..
 cd perl
 %{__autoconf}
 %configure
-%{__make} \
+%{__make} -j1 \
 	INSTALLDIRS=vendor \
 	OPTIMIZE="%{rpmcflags}"
 cd ..
@@ -235,7 +235,7 @@ cd ..
 cd ruby
 %{__autoconf}
 %configure
-%{__make}
+%{__make} -j1
 cd ..
 %endif
 
@@ -245,33 +245,33 @@ cd cgi
 %{__autoconf}
 %{__automake}
 %configure 
-%{__make}
+%{__make} -j1
 cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} -C plus install \
+%{__make} -j1 -C plus install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} -C cgi install \
+%{__make} -j1 -C cgi install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{with java}
-%{__make} -C java install \
+%{__make} -j1 -C java install \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
 %if %{with perl}
-%{__make} -C perl install \
+%{__make} -j1 -C perl install \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
 %if %{with ruby}
-%{__make} -C ruby install \
+%{__make} -j1 -C ruby install \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
