@@ -1,0 +1,23 @@
+diff -urN qdbm-1.8.77/Makefile.am qdbm-1.8.77.new/Makefile.am
+--- qdbm-1.8.77/Makefile.am	2009-09-19 15:02:51.000000000 +0200
++++ qdbm-1.8.77.new/Makefile.am	2009-09-19 14:57:33.000000000 +0200
+@@ -83,19 +83,6 @@
+ 	man/relic.3 \
+ 	man/villa.3 \
+ 	man/vista.3 \
+-	man/vlopen.3 \
+-	man/cabin.3 \
+-	man/cropen.3 \
+-	man/curia.3 \
+-	man/depot.3 \
+-	man/dpopen.3 \
+-	man/hovel.3 \
+-	man/odeum.3 \
+-	man/odopen.3 \
+-	man/qdbm.3 \
+-	man/relic.3 \
+-	man/villa.3 \
+-	man/vista.3 \
+ 	man/vlopen.3
+ 
+ pkgconfigdir = $(libdir)/pkgconfig
