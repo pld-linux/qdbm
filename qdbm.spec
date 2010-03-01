@@ -20,6 +20,7 @@ Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
 # Source0-md5:	084e07824e231969356ec7cefac97985
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-Makefile.patch
+Patch2:		%{name}-ruby1.9.patch
 URL:		http://qdbm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -191,6 +192,7 @@ Biblioteki Ruby dla QDBM-a.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
