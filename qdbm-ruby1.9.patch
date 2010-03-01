@@ -39,3 +39,44 @@
    depot = dptable[index];
    if((vsiz = dpvsiz(depot, kbuf, ksiz)) == -1){
      if(dpsltable[index] && dpecode == DP_ENOITEM) return INT2FIX(-1);
+--- qdbm-1.8.77/ruby/curia/mod_curia.c~	2006-09-25 14:26:06.000000000 +0200
++++ qdbm-1.8.77/ruby/curia/mod_curia.c	2010-03-01 16:48:33.357187147 +0100
+@@ -277,9 +277,9 @@
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
+   kbuf = STR2CSTR(vkey);
+-  ksiz = RSTRING(vkey)->len;
++  ksiz = RSTRING_LEN(vkey);
+   vbuf = STR2CSTR(vval);
+-  vsiz = RSTRING(vval)->len;
++  vsiz = RSTRING_LEn(vval);
+   FIXNUM_P(vdmode);
+   dmode = FIX2INT(vdmode);
+   curia = crtable[index];
+@@ -298,7 +298,7 @@
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
+   kbuf = STR2CSTR(vkey);
+-  ksiz = RSTRING(vkey)->len;
++  ksiz = RSTRING_LEN(vkey);
+   curia = crtable[index];
+   if(!crout(curia, kbuf, ksiz)){
+     if(crsltable[index] && dpecode == DP_ENOITEM) return Qfalse;
+@@ -317,7 +317,7 @@
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
+   kbuf = STR2CSTR(vkey);
+-  ksiz = RSTRING(vkey)->len;
++  ksiz = RSTRING_LEN(vkey);
+   FIXNUM_P(vstart);
+   start = FIX2INT(vstart);
+   FIXNUM_P(vmax);
+@@ -340,7 +340,7 @@
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
+   kbuf = STR2CSTR(vkey);
+-  ksiz = RSTRING(vkey)->len;
++  ksiz = RSTRING_LEN(vkey);
+   curia = crtable[index];
+   if((vsiz = crvsiz(curia, kbuf, ksiz)) == -1){
+     if(crsltable[index] && dpecode == DP_ENOITEM) return INT2FIX(-1);
