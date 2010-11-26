@@ -12,16 +12,16 @@
 Summary:	Quick Database Manager
 Summary(pl.UTF-8):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
-Version:	1.8.77
-Release:	6
+Version:	1.8.78
+Release:	1
 License:	LGPL
 Group:		Libraries
-Source0:	http://qdbm.sourceforge.net/%{name}-%{version}.tar.gz
-# Source0-md5:	084e07824e231969356ec7cefac97985
+Source0:	http://fallabs.com/qdbm//%{name}-%{version}.tar.gz
+# Source0-md5:	66b3bd69a651316b8d6adc2f21cf3225
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-Makefile.patch
 Patch2:		%{name}-ruby1.9.patch
-URL:		http://qdbm.sourceforge.net/
+URL:		http://fallabs.com/qdbm/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libstdc++-devel
@@ -298,8 +298,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc spex.html
-%lang(ja) %doc spex-ja.html
+%doc doc/spex.html
+%lang(ja) %doc doc/spex-ja.html
 %attr(755,root,root) %{_bindir}/dpmgr
 %attr(755,root,root) %{_bindir}/dptest
 %attr(755,root,root) %{_bindir}/dptsv
