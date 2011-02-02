@@ -1,4 +1,7 @@
 #
+# TODO:
+# - build requires jni.h (from package compatible with installed jdk)
+#
 # Conditional build:
 %bcond_without	java		# with Java bindings
 %bcond_without	perl		# without Perl bindings
@@ -7,6 +10,10 @@
 #
 %ifnarch i586 i686 pentium3 pentium4 athlon %{x8664}
 %undefine with_java
+%endif
+#
+%if %{with perl}
+%include	/usr/lib/rpm/macros.perl
 %endif
 #
 Summary:	Quick Database Manager
@@ -24,12 +31,12 @@ Patch2:		%{name}-ruby1.9.patch
 URL:		http://fallabs.com/qdbm/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%{?with_java:BuildRequires:	jdk}
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool
-%{?with_java:BuildRequires:	jdk}
 %if %{with perl}
-BuildRequires:  perl-devel >= 1:5.8.0
-BuildRequires:  rpm-perlprov >= 4.1-13
+BuildRequires:	perl-devel >= 1:5.8.0
+BuildRequires:	rpm-perlprov >= 4.1-13
 %endif
 %{?with_ruby:BuildRequires:	ruby-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -248,7 +255,7 @@ cd cgi
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure 
+%configure
 %{__make} -j1
 cd ..
 
