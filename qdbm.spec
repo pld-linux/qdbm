@@ -21,7 +21,7 @@ Version:	1.8.78
 Release:	3
 License:	LGPL
 Group:		Libraries
-Source0:	http://fallabs.com/qdbm//%{name}-%{version}.tar.gz
+Source0:	http://fallabs.com/qdbm/%{name}-%{version}.tar.gz
 # Source0-md5:	66b3bd69a651316b8d6adc2f21cf3225
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-Makefile.patch
@@ -31,7 +31,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_java:BuildRequires:	jdk}
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:1.5
 %if %{with perl}
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
@@ -145,7 +145,7 @@ bazami danych, przesyłania plików i wyszukiwania pełnotekstowego.
 
 %package java
 Summary:	Java libraries for QDBM
-Summary(pl.UTF-8):	Biblioteki Javy dla QDBM-a
+Summary(pl.UTF-8):	Wiązania Javy do QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -153,7 +153,7 @@ Requires:	%{name} = %{version}-%{release}
 QDBM Java bindings.
 
 %description java -l pl.UTF-8
-Biblioteki Javy dla QDBM-a.
+Wiązania Javy do QDBM-a.
 
 %package java-devel
 Summary:	Java development library for QDBM and documentation
@@ -171,7 +171,7 @@ programów z użyciem wiązań Javy QDBM-a.
 
 %package perl
 Summary:	Perl libraries for QDBM
-Summary(pl.UTF-8):	Biblioteki Perla dla QDBM-a
+Summary(pl.UTF-8):	Wiązania Perla do QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -179,11 +179,11 @@ Requires:	%{name} = %{version}-%{release}
 QDBM Perl bindings.
 
 %description perl -l pl.UTF-8
-Biblioteki Perla dla QDBM-a.
+Wiązania Perla do QDBM-a.
 
 %package ruby
 Summary:	Ruby libraries for QDBM
-Summary(pl.UTF-8):	Biblioteki Ruby dla QDBM-a
+Summary(pl.UTF-8):	Wiązania języka Ruby do QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 %ruby_ver_requires_eq
@@ -192,7 +192,7 @@ Requires:	%{name} = %{version}-%{release}
 QDBM Ruby bindings.
 
 %description ruby -l pl.UTF-8
-Biblioteki Ruby dla QDBM-a.
+Wiązania języka Ruby do QDBM-a.
 
 %prep
 %setup -q
@@ -206,7 +206,7 @@ Biblioteki Ruby dla QDBM-a.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
+	--enable-static%{!?with_static_libs:=no}
 %{__make} -j1
 
 cd plus
@@ -215,7 +215,7 @@ cd plus
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
+	--enable-static%{!?with_static_libs:=no}
 %{__make} -j1
 cd ..
 
@@ -226,7 +226,7 @@ cd java
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-static=%{?with_static_libs:yes}%{!?with_static_libs:no}
+	--disable-static
 %{__make} -j1
 cd ..
 %endif
@@ -285,6 +285,14 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
+# packaged as %doc
+%if %{with perl}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/qdbm/perl/{plapidoc,*.html}
+%endif
+%if %{with ruby}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/qdbm/ruby/{rbapidoc,*.html}
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -301,6 +309,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc ChangeLog NEWS README THANKS
 %attr(755,root,root) %{_libdir}/libqdbm.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libqdbm.so.13
 
 %files devel
 %defattr(644,root,root,755)
@@ -378,6 +387,7 @@ rm -rf $RPM_BUILD_ROOT
 %files plus
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libxqdbm.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libxqdbm.so.3
 
 %files plus-devel
 %defattr(644,root,root,755)
@@ -421,6 +431,7 @@ rm -rf $RPM_BUILD_ROOT
 %files java
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libjqdbm.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libjqdbm.so.1
 %{_libdir}/qdbm.jar
 
 %files java-devel
