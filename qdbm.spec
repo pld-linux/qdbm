@@ -19,7 +19,7 @@ Summary(pl.UTF-8):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.78
 Release:	3
-License:	LGPL
+License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://fallabs.com/qdbm/%{name}-%{version}.tar.gz
 # Source0-md5:	66b3bd69a651316b8d6adc2f21cf3225
