@@ -18,7 +18,7 @@ Summary:	Quick Database Manager
 Summary(pl.UTF-8):	Quick Database Manager - szybki silnik bazy danych
 Name:		qdbm
 Version:	1.8.78
-Release:	4
+Release:	5
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://fallabs.com/qdbm/%{name}-%{version}.tar.gz
@@ -282,6 +282,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %if %{with ruby}
 %{__make} -j1 -C ruby install \
+	RUBYARCHDIR=$RPM_BUILD_ROOT%{ruby_vendorarchdir} \
+	RUBYLIBDIR=$RPM_BUILD_ROOT%{ruby_vendorlibdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
@@ -472,10 +474,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rbcrtest
 %attr(755,root,root) %{_bindir}/rbdptest
 %attr(755,root,root) %{_bindir}/rbvltest
-%{ruby_sitelibdir}/curia.rb
-%{ruby_sitelibdir}/depot.rb
-%{ruby_sitelibdir}/villa.rb
-%attr(755,root,root) %{ruby_sitearchdir}/mod_curia.so
-%attr(755,root,root) %{ruby_sitearchdir}/mod_depot.so
-%attr(755,root,root) %{ruby_sitearchdir}/mod_villa.so
+%{ruby_vendorlibdir}/curia.rb
+%{ruby_vendorlibdir}/depot.rb
+%{ruby_vendorlibdir}/villa.rb
+%attr(755,root,root) %{ruby_vendorarchdir}/mod_curia.so
+%attr(755,root,root) %{ruby_vendorarchdir}/mod_depot.so
+%attr(755,root,root) %{ruby_vendorarchdir}/mod_villa.so
 %endif
