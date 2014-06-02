@@ -186,7 +186,6 @@ Summary:	Ruby libraries for QDBM
 Summary(pl.UTF-8):	Wiązania języka Ruby do QDBM-a
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-%ruby_ver_requires_eq
 
 %description ruby
 QDBM Ruby bindings.
