@@ -455,13 +455,10 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorarch}/Depot.pm
 %{perl_vendorarch}/Villa.pm
 %dir %{perl_vendorarch}/auto/Curia
-%{perl_vendorarch}/auto/Curia/Curia.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Curia/Curia.so
 %dir %{perl_vendorarch}/auto/Depot
-%{perl_vendorarch}/auto/Depot/Depot.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Depot/Depot.so
 %dir %{perl_vendorarch}/auto/Villa
-%{perl_vendorarch}/auto/Villa/Villa.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Villa/Villa.so
 %endif
 
