@@ -12,7 +12,6 @@
 %undefine with_java
 %endif
 #
-%include	/usr/lib/rpm/macros.perl
 #
 Summary:	Quick Database Manager
 Summary(pl.UTF-8):	Quick Database Manager - szybki silnik bazy danych
