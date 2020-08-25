@@ -20,12 +20,12 @@ Version:	1.8.78
 Release:	19
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://fallabs.com/qdbm/%{name}-%{version}.tar.gz
+Source0:	https://dbmx.net/qdbm/%{name}-%{version}.tar.gz
 # Source0-md5:	66b3bd69a651316b8d6adc2f21cf3225
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-Makefile.patch
 Patch2:		%{name}-ruby1.9.patch
-URL:		http://fallabs.com/qdbm/
+URL:		https://dbmx.net/qdbm/
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_java:BuildRequires:	jdk}
