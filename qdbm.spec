@@ -11,6 +11,8 @@
 %ifnarch i586 i686 pentium3 pentium4 athlon %{x8664}
 %undefine with_java
 %endif
+
+%{?with_java:%{?use_default_jdk}}
 #
 #
 Summary:	Quick Database Manager
@@ -28,12 +30,13 @@ Patch2:		%{name}-ruby1.9.patch
 URL:		https://dbmx.net/qdbm/
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_java:BuildRequires:	jdk}
+%{?with_java:%buildrequires_jdk}
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 %if %{with perl}
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
+BuildRequires:	rpmbuild(macros) >= 2.021
 %endif
 %{?with_ruby:BuildRequires:	ruby-devel}
 %{?with_ruby:BuildConflicts:	qdbm-devel}
@@ -223,6 +226,7 @@ cd java
 %{__aclocal}
 %{__autoconf}
 %{__automake}
+export JAVA_HOME="%{java_home}"
 %configure \
 	--disable-static
 %{__make} -j1
