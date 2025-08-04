@@ -148,3 +148,272 @@
    FIXNUM_P(vcpmode);
    cpmode = FIX2INT(vcpmode);
    villa = vltable[index];
+--- qdbm-1.8.78/ruby/depot/mod_depot.c.orig	2025-08-04 14:00:37.569646522 +0200
++++ qdbm-1.8.78/ruby/depot/mod_depot.c	2025-08-04 14:26:33.652356749 +0200
+@@ -83,7 +83,7 @@
+  *************************************************************************************************/
+ 
+ 
+-Init_mod_depot(){
++void  Init_mod_depot(){
+   dpinit();
+   cdepoterror = rb_define_class("DepotError", rb_eStandardError);
+   cdepoterror_ENOERR = rb_define_class("DepotError_ENOERR", cdepoterror);
+@@ -232,7 +232,11 @@
+   const char *name;
+   int index, omode, bnum;
+   if((index = getnewindex()) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  name = StringValuePtr(vname);
++#else
+   name = STR2CSTR(vname);
++#endif
+   FIXNUM_P(vomode);
+   omode = FIX2INT(vomode);
+   FIXNUM_P(vbnum);
+@@ -273,9 +277,17 @@
+   int index, ksiz, vsiz, dmode;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
++#if defined(StringValuePtr)
++  vbuf = StringValuePtr(vval);
++#else
+   vbuf = STR2CSTR(vval);
++#endif
+   vsiz = RSTRING_LEN(vval);
+   FIXNUM_P(vdmode);
+   dmode = FIX2INT(vdmode);
+@@ -294,7 +306,11 @@
+   int index, ksiz;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   depot = dptable[index];
+   if(!dpout(depot, kbuf, ksiz)){
+@@ -313,7 +329,11 @@
+   VALUE vval;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   FIXNUM_P(vstart);
+   start = FIX2INT(vstart);
+@@ -336,7 +356,11 @@
+   int index, ksiz, vsiz;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   depot = dptable[index];
+   if((vsiz = dpvsiz(depot, kbuf, ksiz)) == -1){
+--- qdbm-1.8.78/ruby/curia/mod_curia.c.orig	2025-08-04 14:00:37.569646522 +0200
++++ qdbm-1.8.78/ruby/curia/mod_curia.c	2025-08-04 14:28:14.329628379 +0200
+@@ -84,7 +84,7 @@
+  *************************************************************************************************/
+ 
+ 
+-Init_mod_curia(){
++void Init_mod_curia(){
+   crinit();
+   ccuriaerror = rb_define_class("CuriaError", rb_eStandardError);
+   ccuriaerror_ENOERR = rb_define_class("CuriaError_ENOERR", ccuriaerror);
+@@ -233,7 +233,11 @@
+   const char *name;
+   int index, omode, bnum, dnum;
+   if((index = getnewindex()) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  name = StringValuePtr(vname);
++#else
+   name = STR2CSTR(vname);
++#endif
+   FIXNUM_P(vomode);
+   omode = FIX2INT(vomode);
+   FIXNUM_P(vbnum);
+@@ -276,10 +280,18 @@
+   int index, ksiz, vsiz, dmode;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
++#if defined(StringValuePtr)
++  vbuf = StringValuePtr(vval);
++#else
+   vbuf = STR2CSTR(vval);
+-  vsiz = RSTRING_LEn(vval);
++#endif
++  vsiz = RSTRING_LEN(vval);
+   FIXNUM_P(vdmode);
+   dmode = FIX2INT(vdmode);
+   curia = crtable[index];
+@@ -297,7 +309,11 @@
+   int index, ksiz;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   curia = crtable[index];
+   if(!crout(curia, kbuf, ksiz)){
+@@ -316,7 +332,11 @@
+   VALUE vval;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   FIXNUM_P(vstart);
+   start = FIX2INT(vstart);
+@@ -339,7 +359,11 @@
+   int index, ksiz, vsiz;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   curia = crtable[index];
+   if((vsiz = crvsiz(curia, kbuf, ksiz)) == -1){
+--- qdbm-1.8.78/ruby/villa/mod_villa.c.orig	2025-08-04 14:00:37.569646522 +0200
++++ qdbm-1.8.78/ruby/villa/mod_villa.c	2025-08-04 14:29:12.746646070 +0200
+@@ -97,7 +97,7 @@
+  *************************************************************************************************/
+ 
+ 
+-Init_mod_villa(){
++void Init_mod_villa(){
+   vlinit();
+   cvillaerror = rb_define_class("VillaError", rb_eStandardError);
+   cvillaerror_ENOERR = rb_define_class("VillaError_ENOERR", cvillaerror);
+@@ -304,7 +304,11 @@
+   int index, omode, cmode;
+   VLCFUNC cmp;
+   if((index = getnewindex()) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  name = StringValuePtr(vname);
++#else
+   name = STR2CSTR(vname);
++#endif
+   FIXNUM_P(vomode);
+   omode = FIX2INT(vomode);
+   FIXNUM_P(vcmode);
+@@ -352,9 +356,17 @@
+   int index, ksiz, vsiz, dmode;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
++#if defined(StringValuePtr)
++  vbuf = StringValuePtr(vval);
++#else
+   vbuf = STR2CSTR(vval);
++#endif
+   vsiz = RSTRING_LEN(vval);
+   FIXNUM_P(vdmode);
+   dmode = FIX2INT(vdmode);
+@@ -373,7 +385,11 @@
+   int index, ksiz;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   villa = vltable[index];
+   if(!vlout(villa, kbuf, ksiz)){
+@@ -391,7 +407,11 @@
+   VALUE vval;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   villa = vltable[index];
+   if(!(vbuf = vlget(villa, kbuf, ksiz, &vsiz))){
+@@ -409,7 +429,11 @@
+   int index, ksiz, vsiz;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   villa = vltable[index];
+   if((vsiz = vlvsiz(villa, kbuf, ksiz)) == -1){
+@@ -426,7 +450,11 @@
+   int index, ksiz, vnum;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   villa = vltable[index];
+   vnum = vlvnum(villa, kbuf, ksiz);
+@@ -497,7 +525,11 @@
+   VALUE vval;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  kbuf = StringValuePtr(vkey);
++#else
+   kbuf = STR2CSTR(vkey);
++#endif
+   ksiz = RSTRING_LEN(vkey);
+   FIXNUM_P(vjmode);
+   jmode = FIX2INT(vjmode);
+@@ -551,7 +583,11 @@
+   int index, vsiz, cpmode;
+   FIXNUM_P(vindex);
+   if((index = FIX2INT(vindex)) == -1) myerror(DP_EMISC);
++#if defined(StringValuePtr)
++  vbuf = StringValuePtr(vval);
++#else
+   vbuf = STR2CSTR(vval);
++#endif
+   vsiz = RSTRING_LEN(vval);
+   FIXNUM_P(vcpmode);
+   cpmode = FIX2INT(vcpmode);
